@@ -22,10 +22,18 @@ class MoneyCommand :CommandExecutor{
      * @return true if a valid command, otherwise false
      */
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
-        if(sender is OfflinePlayer){
-            sender.sendMessage("Balance of ${Main.economy.getAccount(sender).name}:"+ChatColor.GOLD+Main.economy.getBalance(sender).toString())
+        if(sender.hasPermission("economypro.money")) {
+            if (sender is OfflinePlayer) {
+                sender.sendMessage(
+                    "Balance of ${Main.economy.getAccount(sender).name}:" + ChatColor.GOLD + Main.economy.getBalance(
+                        sender
+                    ).toString()
+                )
+            } else {
+                sender.sendMessage("${ChatColor.DARK_RED}This command can only be executed from the player ")
+            }
         } else {
-            sender.sendMessage("${ChatColor.DARK_RED}This command can only be executed from the player ")
+            sender.sendMessage("Unknown command. Type\"/help\" for help.")
         }
         return true
     }
