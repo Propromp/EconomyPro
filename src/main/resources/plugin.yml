@@ -2,3 +2,20 @@ name: EconomyPro
 version: @version@
 main: net.propromp.economypro.Main
 api-version: 1.15
+depend: [Vault]
+commands:
+  money:
+    description: check your balance
+  bank:
+    description: manage your bank
+    usage: /bank help
+  balance:
+    description: manage balance
+    usage: /balance help
+  pay:
+    description: pay <player> <amount>
+    usage: /pay <player> <amount>
+  economypro:
+    description: shows help
+  balancetop:
+    description: Displays Top 10

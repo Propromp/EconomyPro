@@ -1,0 +1,3 @@
+plural: "円"#currency in plural form
+singular: "円"#currency in singular form
+disable-essentials: true

@@ -31,6 +31,7 @@ dependencies {
     implementation(kotlin("stdlib-jdk8"))
     implementation("org.jetbrains.kotlinx", "kotlinx-coroutines-core", "latest.release")
     implementation("com.destroystokyo.paper", "paper-api", paperVersion)
+    compileOnly("com.github.MilkBowl:VaultAPI:1.7")
 }
 
 tasks {
@@ -66,9 +67,7 @@ tasks {
 
     create<Copy>("buildPlugin") {
         from(shadowJar)
-        var dest = file("$serverDirectory/plugins")
-        if (File(dest, shadowJar.get().archiveFileName.get()).exists()) dest = File(dest, "update")
-        into(dest)
+        into("$serverDirectory/plugins")
     }
 
     create<DefaultTask>("setupWorkspace") {

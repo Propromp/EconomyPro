@@ -1,4 +1,5 @@
 /server/
 /.idea/
 /.gradle/
+/build/
 /gradle/
