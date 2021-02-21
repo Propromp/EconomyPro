@@ -14,16 +14,23 @@ super-useful economy plugin
 - /balancetop:displays Top 10
 ## permissions
 - economypro.*
-    default: op
+
+default: op
 - economypro.money
-    default: all players
+    
+default: all players
 - economypro.bank
-    default: all players
+    
+default: all players
 - economypro.balance
-    default: op
+    
+default: op
 - economypro.pay
-    default: all players
+    
+default: all players
 - economypro.economypro
-    default: all players
+    
+default: all players
 - economypro.balancetop
-    default: all players
+    
+default: all players
