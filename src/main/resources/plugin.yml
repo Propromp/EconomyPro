@@ -19,3 +19,25 @@ commands:
     description: shows help
   balancetop:
     description: Displays Top 10
+permissions:
+  economypro.*:
+    children:
+      - economypro.money
+      - economypro.bank
+      - economypro.balance
+      - economypro.pay
+      - economypro.economypro
+      - economypro.balancetop
+    default: op
+  economypro.money:
+    default: true
+  economypro.bank:
+    default: true
+  economypro.balance:
+    default: op
+  economypro.pay:
+    default: true
+  economypro.economypro:
+    default: true
+  economypro.balncetop:
+    default: true
