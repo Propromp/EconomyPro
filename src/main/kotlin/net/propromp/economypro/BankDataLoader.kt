@@ -1,6 +1,6 @@
 package net.propromp.economypro
 
-import net.propromp.economypro.api.Bank
+import net.propromp.economypro.api.NormalBankAccount
 import net.propromp.economypro.api.ProEconomy
 import net.propromp.util.CustomConfig
 import org.bukkit.Bukkit
@@ -18,29 +18,29 @@ class BankDataLoader(val plugin:Main,var economy: ProEconomy,val mySQL:Boolean) 
         customConfig.saveDefaultConfig()
         config=customConfig.config
     }
-    fun loadAll():ArrayList<Bank> {
+    fun loadAll():ArrayList<NormalBankAccount> {
         if(mySQL) {//mysql
             TODO()
         } else {//yml
-            var res = arrayListOf<Bank>()
+            var res = arrayListOf<NormalBankAccount>()
             config.getKeys(false).forEach {
                 res.add(load(it))
             }
             return res
         }
     }
-    fun load(key:String):Bank{
+    fun load(key:String):NormalBankAccount{
         if(mySQL){//mysql
             TODO()
         } else {//yml
             if(config.contains(key)){
-                var bank = Bank(config.getString("$key.name")!!,config.getOfflinePlayer("$key.owner")!!)
+                var bank = NormalBankAccount(config.getString("$key.name")!!,config.getOfflinePlayer("$key.owner")!!)
                 var players = mutableListOf<OfflinePlayer>()
                 config.getStringList("$key.members").forEach{
                     players.add(Bukkit.getOfflinePlayer(UUID.fromString(it)))
                 }
                 bank.members=players
-                economy.banks.add(bank)
+                economy.accounts.add(bank)
                 return bank
             } else {
                 throw ArrayIndexOutOfBoundsException("could not load bank($key).")
@@ -52,8 +52,8 @@ class BankDataLoader(val plugin:Main,var economy: ProEconomy,val mySQL:Boolean) 
             TODO()
         } else {
             var i = 0
-            economy.banks.forEach {
-                it?.let {
+            economy.normalAccounts.forEach {
+                it.let {
                     config.set("$i.name",it.name)
                     config.set("$i.owner",it.owner)
                     var uuids = mutableListOf<String>()

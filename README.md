@@ -34,9 +34,12 @@ super-useful economy plugin
 - economypro.bank
     
     default: all players
-- economypro.balance
+- economypro.balance.set
     
     default: op
+- economypro.balance.get
+    
+    default: all players
 - economypro.pay
     
     default: all players

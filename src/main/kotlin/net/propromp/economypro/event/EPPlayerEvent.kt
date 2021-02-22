@@ -17,9 +17,9 @@ class EPPlayerEvent(private val plugin:Main) : Listener{
 
     @EventHandler
     fun onPlayerJoin(e:PlayerJoinEvent){
-        if(!Main.economy.hasAccount(e.player)){
+        if(!Main.economy.hasDefaultAccount(e.player)){
             plugin.logger.info("${e.player.name} joined this server for first time. creating bank(default) for ${e.player.name}")
-            Main.economy.createPlayerAccount(e.player)
+            Main.economy.createDefaultAccount(e.player)
             plugin.logger.info("completed.")
         }
     }

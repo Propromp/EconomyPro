@@ -2,6 +2,9 @@ package net.propromp.economypro
 
 import net.milkbowl.vault.economy.Economy
 import net.propromp.economypro.api.ProEconomy
+import net.propromp.economypro.api.VaultEconomy
+import net.propromp.economypro.command.BalanceCommand
+import net.propromp.economypro.command.BankCommand
 import net.propromp.economypro.command.MoneyCommand
 import net.propromp.economypro.event.EPPlayerEvent
 import org.bukkit.Bukkit
@@ -26,23 +29,29 @@ class Main : JavaPlugin() {
         logger.info("Copyright (c) 2021 ${ChatColor.AQUA}Propromp")
         logger.info("${ChatColor.BOLD}This software is released under MIT license.")
 
-        logger.info("loading economy system...")
-        saveDefaultConfig()
         instance = this
+
+        logger.info("loading economy system...")
         economy = ProEconomy(config.getString("plural")!!, config.getString("singular")!!)
-        server.servicesManager.register(Economy::class.java, economy, this, ServicePriority.Normal)
-        if (config.getBoolean("disable-essentials")) {
-            val econs: Collection<RegisteredServiceProvider<Economy?>> =
-                Bukkit.getPluginManager().getPlugin("Vault")!!.server.servicesManager.getRegistrations(
-                    Economy::class.java
-                )
-            for (econ in econs) {
-                if (econ.provider.name.equals("Essentials Economy")) {
-                    server.servicesManager.unregister(econ.provider)
+        logger.info("complete.")
+
+        if(Bukkit.getPluginManager().isPluginEnabled("Vault")) {
+            logger.info("Vault is detected. initializing vault economy support...")
+            saveDefaultConfig()
+            server.servicesManager.register(Economy::class.java, VaultEconomy(economy), this, ServicePriority.Normal)
+            if (config.getBoolean("disable-essentials")) {
+                val econs: Collection<RegisteredServiceProvider<Economy?>> =
+                    Bukkit.getPluginManager().getPlugin("Vault")!!.server.servicesManager.getRegistrations(
+                        Economy::class.java
+                    )
+                for (econ in econs) {
+                    if (econ.provider.name.equals("Essentials Economy")) {
+                        server.servicesManager.unregister(econ.provider)
+                    }
                 }
             }
+            logger.info("complete.")
         }
-        logger.info("complete.")
 
         logger.info("loading banks...")
         bankDataLoader= BankDataLoader(this, economy,false)
@@ -51,6 +60,10 @@ class Main : JavaPlugin() {
 
         logger.info("loading commands...")
         getCommand("money")?.setExecutor(MoneyCommand())
+        getCommand("bank")?.setExecutor(BankCommand())
+        getCommand("bank")?.tabCompleter = BankCommand()
+        getCommand("balance")?.setExecutor(BalanceCommand())
+        getCommand("balance")?.tabCompleter = BalanceCommand()
         logger.info("complete.")
 
         logger.info("loading event listeners...")

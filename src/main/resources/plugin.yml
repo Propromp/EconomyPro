@@ -24,7 +24,8 @@ permissions:
     children:
       - economypro.money
       - economypro.bank
-      - economypro.balance
+      - economypro.balance.set
+      - economypro.balance.get
       - economypro.pay
       - economypro.economypro
       - economypro.balancetop
@@ -33,8 +34,10 @@ permissions:
     default: true
   economypro.bank:
     default: true
-  economypro.balance:
+  economypro.balance.set:
     default: op
+  economypro.balance.get:
+    default: true
   economypro.pay:
     default: true
   economypro.economypro:

@@ -25,9 +25,7 @@ class MoneyCommand :CommandExecutor{
         if(sender.hasPermission("economypro.money")) {
             if (sender is OfflinePlayer) {
                 sender.sendMessage(
-                    "Balance of ${Main.economy.getAccount(sender).name}:" + ChatColor.GOLD + Main.economy.getBalance(
-                        sender
-                    ).toString()
+                    "Balance of ${Main.economy.getSelectedAccount(sender).name}:" + ChatColor.GOLD + Main.economy.getSelectedAccount(sender).balance
                 )
             } else {
                 sender.sendMessage("${ChatColor.DARK_RED}This command can only be executed from the player ")
