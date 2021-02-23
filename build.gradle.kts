@@ -67,6 +67,7 @@ tasks {
     }
 
     create<Copy>("buildPlugin") {
+        File("$serverDirectory/plugins")
         from(shadowJar)
         into("$serverDirectory/plugins")
     }

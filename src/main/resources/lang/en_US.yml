@@ -1,0 +1,45 @@
+command:
+  not_enough_arguments: "Not enough arguments"
+  not_owner: "You have to be a owner of the bank to perform this command"
+  not_member: "You have to be a member of the bank to perform this command"
+  not_owner_or_member: "You have to be a member or a owner of the bank to perform this command"
+  bank_not_found: "The bank does not exist."
+  player_not_found: "The player doesn't exist"
+  bank_already_exists: "The bank already exists"
+  unknown_command: "Unknown command. Type /helpUnknown command. Type "/help" for help. for help."
+  bank:
+    help:
+      help: "shows help"
+      select: "select a bank"
+      info: "shows the information of the bank"
+      delete: "delete the bank"
+      create: "create a bank"
+    select:
+      1: "selected default as the default bank"
+      2: "selected %val1% as the default bank"
+    info:
+      title: "BankInfo"
+    delete:
+      1: "You can not delete default bank account"
+      2: "deleted the bank account successfully"
+      3: "Do you really want to delete %val1% ?"
+      4: "By pressing [yes] The money in %val1% will disappear"
+      5: "[yes]"
+    create:
+      1: "You cannnot create a bank account with this name"
+      2: "created a bank account. You can select the account with /bank select %val1%"
+    invite:
+      1: "Invited %val1% to %val2%"
+      2: "You received an invitation from bank account %val1%"
+      3: "[join]"
+    leave:
+      1: "You have left from bank account %val1%"
+      2: "You have to delete the bank before you leave the bank"
+    join:
+      1: "You have successfully joined the bank account!"
+      2: "You are not invited from the bank account"
+word:
+  name: "name"
+  owner: "owner"
+  members: "members"
+  balance: "balance"

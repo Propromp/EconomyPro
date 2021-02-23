@@ -20,6 +20,7 @@ class Main : JavaPlugin() {
         lateinit var instance: Main
         lateinit var economy: ProEconomy
         lateinit var bankDataLoader: BankDataLoader
+        lateinit var lang:PELang
     }
     override fun onEnable() {
         logger.info(" ${ChatColor.GREEN}┏━━━━━       ${ChatColor.AQUA}┏━━━━━┓")
@@ -31,6 +32,7 @@ class Main : JavaPlugin() {
         logger.info("${ChatColor.BOLD}This software is released under MIT license.")
 
         instance = this
+        lang = PELang(this)
 
         logger.info("loading economy system...")
         economy = ProEconomy(config.getString("plural")!!, config.getString("singular")!!)
