@@ -1,7 +1,9 @@
-package net.propromp.economypro.api
+package net.propromp.economypro.vault
 
 import net.milkbowl.vault.economy.Economy
 import net.milkbowl.vault.economy.EconomyResponse
+import net.propromp.economypro.api.NormalBankAccount
+import net.propromp.economypro.api.ProEconomy
 import org.bukkit.Bukkit
 import org.bukkit.OfflinePlayer
 

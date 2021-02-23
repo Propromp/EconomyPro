@@ -6,14 +6,7 @@ import org.bukkit.World
 open class NormalBankAccount(override var name: String, var owner: OfflinePlayer) :BankAccount{
     var members = mutableListOf<OfflinePlayer>()
     override var balance = 0.0
-    override fun deposit(amount: Double) {
-        balance+=amount
-    }
-
-    override fun withdraw(amount: Double) {
-        balance-=amount
-    }
-
+    var invitedPlayers = mutableListOf<OfflinePlayer>()
     override fun has(amount: Double): Boolean {
         return balance>=amount
     }
@@ -27,4 +20,14 @@ open class NormalBankAccount(override var name: String, var owner: OfflinePlayer
     fun isMemberOrOwner(player: OfflinePlayer):Boolean{
         return isOwner(player)||isMember(player)
     }
+
+    fun addInvited(player: OfflinePlayer){
+        if(!isInvited(player)){
+            invitedPlayers.add(player)
+        }
+    }
+    fun isInvited(player: OfflinePlayer):Boolean{
+        return invitedPlayers.contains(player)
+    }
+
 }

@@ -2,7 +2,7 @@ package net.propromp.economypro
 
 import net.milkbowl.vault.economy.Economy
 import net.propromp.economypro.api.ProEconomy
-import net.propromp.economypro.api.VaultEconomy
+import net.propromp.economypro.vault.VaultEconomy
 import net.propromp.economypro.command.BalanceCommand
 import net.propromp.economypro.command.BankCommand
 import net.propromp.economypro.command.MoneyCommand

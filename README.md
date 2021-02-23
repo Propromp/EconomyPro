@@ -10,10 +10,13 @@ super-useful economy plugin
 - /bank:manage your bank account
 
     - /bank help:shows help
-    - /bank select [accountName]:select the account as vault-linked account
-    - /bank info [accountName]:shows the information of the bank account
-    - /bank delete [accountName]:delete the bank account
-    - /bank create [accountName]:create the bank account
+    - /bank select [account]:select the account as vault-linked account
+    - /bank info [account]:shows the information of the bank account
+    - /bank delete [account]:delete the bank account
+    - /bank create [account]:create the bank account
+    - /bank invite [account] [player]:invite [player] to [account]
+    - /bank leave [account]:leave [account]
+    - /bank join [account]:join to [account]
 - /balance:manage balance
   
     - /balance help:shows help

@@ -2,15 +2,14 @@ package net.propromp.economypro.api
 
 import org.bukkit.OfflinePlayer
 import org.bukkit.World
-import org.bukkit.entity.Player
 
-class PlayerBankAccount(val player:OfflinePlayer) : BankAccount{
+class PlayerBankAccount(val player: OfflinePlayer) : BankAccount {
     override var name = "default"
     override var balance: Double
         get() {
-            return if(player.isOnline){//online
+            return if (player.isOnline) {//online
                 var onlinePlayer = player.player!!
-                if(worldBalance.containsKey(onlinePlayer.world)) {
+                if (worldBalance.containsKey(onlinePlayer.world)) {
                     worldBalance[onlinePlayer.world]!!
                 } else {
                     normalBalance
@@ -20,29 +19,47 @@ class PlayerBankAccount(val player:OfflinePlayer) : BankAccount{
             }
         }
         set(value) {
-            if(player.isOnline){//online
+            if (player.isOnline) {//online
                 var onlinePlayer = player.player!!
-                if(worldBalance.containsKey(onlinePlayer.world)) {
+                if (worldBalance.containsKey(onlinePlayer.world)) {
                     worldBalance[onlinePlayer.world] = value
                 } else {
-                    normalBalance=value
+                    normalBalance = value
                 }
             } else {
-                normalBalance=value
+                normalBalance = value
             }
         }
-    internal val worldBalance = HashMap<World,Double>()
+    internal val worldBalance = HashMap<World, Double>()
     internal var normalBalance = 0.0
 
-    override fun deposit(amount: Double) {
-        balance+=amount
+    override fun has(amount: Double): Boolean {
+        return balance >= amount
     }
 
-    override fun withdraw(amount: Double) {
-        balance-=amount
+    fun deposit(amount: Double, world: World) {
+        worldBalance[world]?.let {
+            worldBalance[world] = worldBalance[world]!!.plus(amount)
+            return
+        }
+        worldBalance[world] = amount
     }
 
-    override fun has(amount: Double):Boolean {
-        return balance>=amount
+    fun withdraw(amount: Double, world: World) {
+        worldBalance[world]?.let {
+            worldBalance[world] = worldBalance[world]!!.minus(amount)
+            return
+        }
+    }
+
+    fun getBalance(world: World): Double {
+        worldBalance[world]?.let {
+            return it
+        }
+        return 0.0
+    }
+
+    fun has(amount: Double, world: World): Boolean {
+        return getBalance(world) >= amount
     }
 }
