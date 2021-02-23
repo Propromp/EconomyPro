@@ -8,28 +8,31 @@ class PlayerBankAccount(val player:OfflinePlayer) : BankAccount{
     override var name = "default"
     override var balance: Double
         get() {
-            return if(player is Player){//online
-                if(worldBalance.containsKey(player.world)) {
-                    worldBalance[player.world]!!
+            return if(player.isOnline){//online
+                var onlinePlayer = player.player!!
+                if(worldBalance.containsKey(onlinePlayer.world)) {
+                    worldBalance[onlinePlayer.world]!!
                 } else {
-                    balance
+                    normalBalance
                 }
             } else {
-                balance
+                normalBalance
             }
         }
         set(value) {
-            if(player is Player){//online
-                if(worldBalance.containsKey(player.world)) {
-                    worldBalance[player.world] = value
+            if(player.isOnline){//online
+                var onlinePlayer = player.player!!
+                if(worldBalance.containsKey(onlinePlayer.world)) {
+                    worldBalance[onlinePlayer.world] = value
                 } else {
-                    balance=value
+                    normalBalance=value
                 }
             } else {
-                balance=value
+                normalBalance=value
             }
         }
     internal val worldBalance = HashMap<World,Double>()
+    internal var normalBalance = 0.0
 
     override fun deposit(amount: Double) {
         balance+=amount

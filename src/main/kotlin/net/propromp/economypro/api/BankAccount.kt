@@ -1,11 +1,23 @@
 package net.propromp.economypro.api
 
-import org.bukkit.OfflinePlayer
+import net.propromp.economypro.api.event.BankDepositEvent
+import net.propromp.economypro.api.event.BankWithdrawEvent
+import org.bukkit.Bukkit
 
-open interface BankAccount {
-    val balance:Double
+interface BankAccount {
+    var balance:Double
     var name:String
-    fun deposit(amount:Double)
-    fun withdraw(amount:Double)
+    fun deposit(amount:Double){
+        val event = BankDepositEvent(this,amount)
+        Bukkit.getPluginManager().callEvent(event)
+        if(event.isCancelled)
+            balance+=amount
+    }
+    fun withdraw(amount:Double){
+        val event = BankWithdrawEvent(this,amount)
+        Bukkit.getPluginManager().callEvent(event)
+        if(event.isCancelled)
+            balance-=amount
+    }
     fun has(amount:Double):Boolean
 }

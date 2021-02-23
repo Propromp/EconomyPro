@@ -6,7 +6,7 @@ import net.propromp.economypro.api.VaultEconomy
 import net.propromp.economypro.command.BalanceCommand
 import net.propromp.economypro.command.BankCommand
 import net.propromp.economypro.command.MoneyCommand
-import net.propromp.economypro.event.EPPlayerEvent
+import net.propromp.economypro.listener.EPPlayerEvent
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.plugin.RegisteredServiceProvider
@@ -36,7 +36,7 @@ class Main : JavaPlugin() {
         logger.info("complete.")
 
         if(Bukkit.getPluginManager().isPluginEnabled("Vault")) {
-            logger.info("Vault is detected. initializing vault economy support...")
+            logger.info("Vault has been detected. Initializing vault economy support ...")
             saveDefaultConfig()
             server.servicesManager.register(Economy::class.java, VaultEconomy(economy), this, ServicePriority.Normal)
             if (config.getBoolean("disable-essentials")) {
@@ -66,7 +66,7 @@ class Main : JavaPlugin() {
         getCommand("balance")?.tabCompleter = BalanceCommand()
         logger.info("complete.")
 
-        logger.info("loading event listeners...")
+        logger.info("loading listener listeners...")
         EPPlayerEvent(this)
         logger.info("complete.")
     }

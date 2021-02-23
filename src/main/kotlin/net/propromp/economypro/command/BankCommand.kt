@@ -40,6 +40,8 @@ class BankCommand : CommandExecutor,TabCompleter {
                     if (sender is Player) {
                         if(args[1]=="default"){
                             Main.economy.selectAccount(sender,Main.economy.getDefaultAccount(sender)!!)
+                            sender.sendMessage("${aqua}selected default as the default bank")
+                            return true
                         }
                         return if (Main.economy.hasAccount(args[1])) {
                             if (Main.economy.getAccount(args[1])!!.isMemberOrOwner(sender)) {
@@ -73,6 +75,7 @@ class BankCommand : CommandExecutor,TabCompleter {
                                         "   ${gold}balance$dgray»$white ${it.balance}\n"
                             )
                         }
+                        return true
                     }
                     return if (Main.economy.hasAccount(args[1])) {
                         Main.economy.getAccount(args[1])?.let {
@@ -111,9 +114,9 @@ class BankCommand : CommandExecutor,TabCompleter {
                                 } else {
                                     sender.sendMessage("Do you really want to delete ${args[1]} ?")
                                     sender.sendMessage("${dred}By pressing [yes] The money in ${args[1]} will disappear")
-                                    val yes = TextComponent("\t   $dred[yes]")
+                                    val yes = TextComponent("   $dred[yes]")
                                     yes.clickEvent =
-                                        ClickEvent(ClickEvent.Action.RUN_COMMAND, "/delete ${args[1]} confirm")
+                                        ClickEvent(ClickEvent.Action.RUN_COMMAND, "/bank delete ${args[1]} confirm")
                                     sender.sendMessage(yes)
                                 }
                                 return true
@@ -172,7 +175,7 @@ class BankCommand : CommandExecutor,TabCompleter {
                 1 -> mutableListOf("help", "select", "info", "delete", "create").filter{it.startsWith(args[0])}.toMutableList()
                 2 -> {
                     var res = mutableListOf<String>()
-                    when(args[1]){
+                    when(args[0]){
                         "select"-> {
                             Main.economy.accounts.filterIsInstance<NormalBankAccount>()
                                 .filter { it.isMemberOrOwner(sender) }.forEach { res.add(it.name) }
@@ -184,7 +187,7 @@ class BankCommand : CommandExecutor,TabCompleter {
                         }
                         "delete"->Main.economy.accounts.filterIsInstance<NormalBankAccount>().filter{it.isOwner(sender)}.forEach{res.add(it.name)}
                     }
-                    return res;
+                    return res.filter{it.startsWith(args[1])}.toMutableList()
                 }
                 else-> mutableListOf()
             }

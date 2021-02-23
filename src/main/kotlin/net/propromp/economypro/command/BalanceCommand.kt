@@ -1,6 +1,7 @@
 package net.propromp.economypro.command
 
 import net.propromp.economypro.Main
+import net.propromp.economypro.api.NormalBankAccount
 import org.bukkit.Bukkit
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
@@ -61,38 +62,38 @@ class BalanceCommand:CommandExecutor,TabCompleter {
                     }
                 }
                 "deposit"->{
-                    if(Bukkit.getPlayer(args[0])!=null){
-                        Main.economy.getDefaultAccount(Bukkit.getPlayer(args[0])!!)?.let{
-                            args[1].toDoubleOrNull()?.run{
+                    if(Bukkit.getPlayer(args[1])!=null){
+                        Main.economy.getDefaultAccount(Bukkit.getPlayer(args[1])!!)?.let{
+                            args[2].toDoubleOrNull()?.run{
                                 it.balance+=this
-                                sender.sendMessage("${aqua}deposited ${args[0]}'s default bank to ${args[1]}")
+                                sender.sendMessage("${aqua}deposited ${args[1]}'s default bank to ${args[2]}")
                                 return true
                             }
                         }
                     } else {
-                        Main.economy.getAccount(args[0])?.let{
-                            args[1].toDoubleOrNull()?.run{
+                        Main.economy.getAccount(args[1])?.let{
+                            args[2].toDoubleOrNull()?.run{
                                 it.balance+=this
-                                sender.sendMessage("$aqua deposited ${args[0]} to ${args[1]}")
+                                sender.sendMessage("$aqua deposited ${args[1]} to ${args[2]}")
                                 return true
                             }
                         }
                     }
                 }
                 "withdraw"->{
-                    if(Bukkit.getPlayer(args[0])!=null){
-                        Main.economy.getDefaultAccount(Bukkit.getPlayer(args[0])!!)?.let{
-                            args[1].toDoubleOrNull()?.run{
+                    if(Bukkit.getPlayer(args[1])!=null){
+                        Main.economy.getDefaultAccount(Bukkit.getPlayer(args[1])!!)?.let{
+                            args[2].toDoubleOrNull()?.run{
                                 it.balance-=this
-                                sender.sendMessage("${aqua}withdraw ${args[1]} from ${args[0]}'s default bank")
+                                sender.sendMessage("${aqua}withdraw ${args[2]} from ${args[1]}'s default bank")
                                 return true
                             }
                         }
                     } else {
-                        Main.economy.getAccount(args[0])?.let{
-                            args[1].toDoubleOrNull()?.run{
+                        Main.economy.getAccount(args[1])?.let{
+                            args[2].toDoubleOrNull()?.run{
                                 it.balance-=this
-                                sender.sendMessage("${aqua}withdraw ${args[1]} from ${args[0]}")
+                                sender.sendMessage("${aqua}withdraw ${args[2]} from ${args[1]}")
                                 return true
                             }
                         }
@@ -115,6 +116,9 @@ class BalanceCommand:CommandExecutor,TabCompleter {
                     var res = mutableListOf<String>()
                     if(sender.hasPermission("economypro.balance.get")){
                         Bukkit.getOnlinePlayers().forEach{res.add(it.name)}
+                        Main.economy.accounts.filterIsInstance<NormalBankAccount>().forEach {
+                            res.add(it.name)
+                        }
                     }
                     if(sender.hasPermission("economypro.balance.set")){
                         res.addAll(listOf("help", "set","deposit","withdraw"))
@@ -126,7 +130,10 @@ class BalanceCommand:CommandExecutor,TabCompleter {
                     Bukkit.getOnlinePlayers().forEach {
                         res.add(it.name)
                     }
-                    return res
+                    Main.economy.accounts.filterIsInstance<NormalBankAccount>().forEach {
+                        res.add(it.name)
+                    }
+                    return res.filter { it.startsWith(args[0]) }.toMutableList()
                 }
                 else-> mutableListOf()
             }

@@ -2,18 +2,18 @@
 super-useful economy plugin
 ## features
 - Full Vault support
-- simple API
-- database support
+- simple and useful API
+- database support(Not implemented yet)
 - no junks. just economy.
 ## commands
 - /money:check your balance
 - /bank:manage your bank account
 
     - /bank help:shows help
-    - /bank select [bankName]:select a bank
-    - /bank info [bankName]:shows the information of the bank
-    - /bank delete [bankName]:delete the bank
-    - /bank create [bankName]:create the bank
+    - /bank select [accountName]:select the account as vault-linked account
+    - /bank info [accountName]:shows the information of the bank account
+    - /bank delete [accountName]:delete the bank account
+    - /bank create [accountName]:create the bank account
 - /balance:manage balance
   
     - /balance help:shows help

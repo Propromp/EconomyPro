@@ -1,5 +1,9 @@
 package net.propromp.economypro.api
 
+import net.propromp.economypro.api.event.CreateBankAccountEvent
+import net.propromp.economypro.api.event.DeleteBankAccountEvent
+import net.propromp.economypro.api.event.SelectBankAccountEvent
+import org.bukkit.Bukkit
 import org.bukkit.OfflinePlayer
 
 class ProEconomy(val plural: String, val singular: String) {
@@ -42,6 +46,7 @@ class ProEconomy(val plural: String, val singular: String) {
             return null
         } else {
             PlayerBankAccount(player).let {
+                Bukkit.getPluginManager().callEvent(CreateBankAccountEvent(it))
                 accounts.add(it)
                 selectedAccounts[player] = it
                 return it
@@ -85,6 +90,7 @@ class ProEconomy(val plural: String, val singular: String) {
             return null
         } else {
             NormalBankAccount(name, owner).let {
+                Bukkit.getPluginManager().callEvent(CreateBankAccountEvent(it))
                 accounts.add(it)
                 return it
             }
@@ -98,6 +104,7 @@ class ProEconomy(val plural: String, val singular: String) {
      */
     fun deleteAccount(name:String):Boolean{
         getAccount(name)?.let{
+            Bukkit.getPluginManager().callEvent(DeleteBankAccountEvent(it))
             accounts.remove(it)
             return true
         }
@@ -105,6 +112,7 @@ class ProEconomy(val plural: String, val singular: String) {
     }
 
     fun selectAccount(player: OfflinePlayer,bankAccount: BankAccount){
+        Bukkit.getPluginManager().callEvent(SelectBankAccountEvent(bankAccount,player))
         selectedAccounts[player]=bankAccount
     }
     fun getSelectedAccount(player: OfflinePlayer):BankAccount{

@@ -1,4 +1,4 @@
-package net.propromp.economypro.event
+package net.propromp.economypro.listener
 
 import com.destroystokyo.paper.event.player.PlayerConnectionCloseEvent
 import net.propromp.economypro.Main
