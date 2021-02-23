@@ -18,88 +18,99 @@ import org.bukkit.ChatColor.WHITE as white
 class BalanceCommand:CommandExecutor,TabCompleter {
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
         if(sender.hasPermission("economypro.balance.get")){
-            if(args.isEmpty()){
-                sender.sendMessage("${dred}Not enough arguments")
-                return true
-            }
-            Bukkit.getPlayer(args[0])?.let{
-                sender.sendMessage("Balance of ${Main.economy.getSelectedAccount(it).name}(${it.name}):" + gold + Main.economy.getSelectedAccount(it).balance)
-            }
-            Main.economy.getAccount(args[0])?.let{
-                sender.sendMessage("Balance of ${it.name}:" + gold + it.balance)
-            }
-        }
-        if(sender.hasPermission("economypro.balance.set")){
-            when(args[0]) {
-                "help" -> {
-                    sender.sendMessage(
-                        "$dgray----------[$red EconomyProHELP$dgray -$white /bank $dgray]----------\n" +
-                                "$gold/balance help$dgray»$white shows help\n" +
-                                "$gold/balance set [player/bank] [amount]$dgray»$white set the balance of [player/bank] to the [amount]\n" +
-                                "$gold/balance [player/bank]$dgray»$white get the balance of [player/bank]\n" +
-                                "$gold/balance deposit [player/bank] [amount]$dgray»$white deposit [amount] to [player/bank]\n" +
-                                "$gold/balance withdraw [player/bank] [amount]$dgray»$white withdraw [amount] from [player/bank]\n" +
-                                "$dgray---------------------------------------------"
-                    )
+            if(sender is Player) {
+                if (args.isEmpty()) {
+                    sender.sendMessage("${dred}${Main.lang.get(sender,"command.not_enough_arguments")}")
                     return true
                 }
-                "set" -> {
-                    Bukkit.getPlayer(args[1])?.let {
-                        Main.economy.getDefaultAccount(it)!!.let {
+                Bukkit.getPlayer(args[0])?.let {
+                    sender.sendMessage(
+                        "${Main.lang.get(sender,"command.balance.get").replace("%val1%","${Main.economy.getSelectedAccount(it).name}(${it.name})")}" + gold + Main.economy.getSelectedAccount(
+                            it
+                        ).balance
+                    )
+                }
+                Main.economy.getAccount(args[0])?.let {
+                    sender.sendMessage("${Main.lang.get(sender,"command.balance.get").replace("%val1%",it.name)}" + gold + it.balance)
+                }
+            }
+        }
+        if(sender is Player) {
+            if (sender.hasPermission("economypro.balance.set")) {
+                when (args[0]) {
+                    "help" -> {
+                        sender.sendMessage(
+                            "$dgray----------[$red EconomyProHELP$dgray -$white /bank $dgray]----------\n" +
+                                    "$gold/balance help$dgray»$white ${Main.lang.get(sender, "command.balance.help.help")}\n" +
+                                    "$gold/balance set [player/bank] [amount]$dgray»$white ${Main.lang.get(sender, "command.balance.help.set")}\n" +
+                                    "$gold/balance [player/bank]$dgray»$white  ${Main.lang.get(sender, "command.balance.help.get")}\n" +
+                                    "$gold/balance deposit [player/bank] [amount]$dgray»$white ${Main.lang.get(sender, "command.balance.help.deposit")}\n" +
+                                    "$gold/balance withdraw [player/bank] [amount]$dgray»$white ${Main.lang.get(sender, "command.balance.help.withdraw")}\n" +
+                                    "$dgray---------------------------------------------"
+                        )
+                        return true
+                    }
+                    "set" -> {
+                        Bukkit.getPlayer(args[1])?.let {
+                            Main.economy.getDefaultAccount(it)!!.let {
+                                args[2].toDoubleOrNull()?.run {
+                                    it.balance = this
+                                    sender.sendMessage("${aqua}${Main.lang.get(sender, "command.balance.set.1").replace("%val1%",args[1]).replace("%val2%",args[2])}")
+                                    return true
+                                }
+                            }
+                        }
+                        Main.economy.getAccount(args[1])?.let {
                             args[2].toDoubleOrNull()?.run {
                                 it.balance = this
-                                sender.sendMessage("${aqua}set the balance of ${args[1]}'s default bank to ${args[2]}")
+                                sender.sendMessage("${aqua}${Main.lang.get(sender, "command.balance.set.2").replace("%val1%",args[1]).replace("%val2%",args[2])}")
                                 return true
                             }
                         }
                     }
-                    Main.economy.getAccount(args[1])?.let {
-                        args[2].toDoubleOrNull()?.run {
-                            it.balance = this
-                            sender.sendMessage("${aqua}set the balance of ${args[1]} to ${args[2]}")
-                            return true
-                        }
-                    }
-                }
-                "deposit"->{
-                    if(Bukkit.getPlayer(args[1])!=null){
-                        Main.economy.getDefaultAccount(Bukkit.getPlayer(args[1])!!)?.let{
-                            args[2].toDoubleOrNull()?.run{
-                                it.balance+=this
-                                sender.sendMessage("${aqua}deposited ${args[1]}'s default bank to ${args[2]}")
-                                return true
+                    "deposit" -> {
+                        if (Bukkit.getPlayer(args[1]) != null) {
+                            Main.economy.getDefaultAccount(Bukkit.getPlayer(args[1])!!)?.let {
+                                args[2].toDoubleOrNull()?.run {
+                                    it.balance += this
+                                    sender.sendMessage("${aqua}${Main.lang.get(sender, "command.deposit.set.1").replace("%val1%",args[1]).replace("%val2%",args[2])}")
+                                    return true
+                                }
                             }
-                        }
-                    } else {
-                        Main.economy.getAccount(args[1])?.let{
-                            args[2].toDoubleOrNull()?.run{
-                                it.balance+=this
-                                sender.sendMessage("$aqua deposited ${args[1]} to ${args[2]}")
-                                return true
+                        } else {
+                            Main.economy.getAccount(args[1])?.let {
+                                args[2].toDoubleOrNull()?.run {
+                                    it.balance += this
+                                    sender.sendMessage("$aqua${Main.lang.get(sender, "command.deposit.set.2").replace("%val1%",args[1]).replace("%val2%",args[2])}")
+                                    return true
+                                }
                             }
                         }
                     }
-                }
-                "withdraw"->{
-                    if(Bukkit.getPlayer(args[1])!=null){
-                        Main.economy.getDefaultAccount(Bukkit.getPlayer(args[1])!!)?.let{
-                            args[2].toDoubleOrNull()?.run{
-                                it.balance-=this
-                                sender.sendMessage("${aqua}withdraw ${args[2]} from ${args[1]}'s default bank")
-                                return true
+                    "withdraw" -> {
+                        if (Bukkit.getPlayer(args[1]) != null) {
+                            Main.economy.getDefaultAccount(Bukkit.getPlayer(args[1])!!)?.let {
+                                args[2].toDoubleOrNull()?.run {
+                                    it.balance -= this
+                                    sender.sendMessage("${aqua}${Main.lang.get(sender, "command.withdraw.set.1").replace("%val1%",args[1]).replace("%val2%",args[2])}")
+                                    return true
+                                }
                             }
-                        }
-                    } else {
-                        Main.economy.getAccount(args[1])?.let{
-                            args[2].toDoubleOrNull()?.run{
-                                it.balance-=this
-                                sender.sendMessage("${aqua}withdraw ${args[2]} from ${args[1]}")
-                                return true
+                        } else {
+                            Main.economy.getAccount(args[1])?.let {
+                                args[2].toDoubleOrNull()?.run {
+                                    it.balance -= this
+                                    sender.sendMessage("${aqua}${Main.lang.get(sender, "command.withdraw.set.2").replace("%val1%",args[1]).replace("%val2%",args[2])}")
+                                    return true
+                                }
                             }
                         }
                     }
                 }
             }
+        }  else {
+            sender.sendMessage("${dred}This command can only be executed from player.")
+            return true
         }
         return true
     }

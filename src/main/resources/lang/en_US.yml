@@ -42,6 +42,23 @@ command:
     paid: "paid %val1% to %val2%"
     received: "Received %val1% from %val2%"
     not_enough_balance: "Not enough balance"
+  balance:
+    get: "balance of %val1%:"
+    help:
+      help: "shows help"
+      set: "set the balance of [player/bank] to the [amount]"
+      get: "get the balance of [player/bank]"
+      deposit: "deposit [amount] to [player/bank]"
+      withdraw: "withdraw [amount] from [player/bank]"
+    set:
+      1: "set the balance of %val1%'s default bank to %val2"
+      2: "set the balance of %val1 to %val2%"
+    deposit:
+      1: "deposited %val1%'s default bank to %val2%"
+      2: "deposited %val1%'s to %val2%"
+    deposit:
+      1: "withdraw %val2% from %val1%'s default bank"
+      2: "withdraw %val2% from %val1%"
 word:
   name: "name"
   owner: "owner"
