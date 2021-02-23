@@ -30,7 +30,7 @@ repositories {
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
     implementation("org.jetbrains.kotlinx", "kotlinx-coroutines-core", "latest.release")
-    implementation("com.destroystokyo.paper", "paper-api", paperVersion)
+    compileOnly("com.destroystokyo.paper", "paper-api", paperVersion)
     compileOnly("com.github.MilkBowl:VaultAPI:1.7")
 }
 

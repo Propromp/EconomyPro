@@ -6,6 +6,7 @@ import net.propromp.economypro.api.VaultEconomy
 import net.propromp.economypro.command.BalanceCommand
 import net.propromp.economypro.command.BankCommand
 import net.propromp.economypro.command.MoneyCommand
+import net.propromp.economypro.command.PayCommand
 import net.propromp.economypro.listener.EPPlayerEvent
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
@@ -64,6 +65,8 @@ class Main : JavaPlugin() {
         getCommand("bank")?.tabCompleter = BankCommand()
         getCommand("balance")?.setExecutor(BalanceCommand())
         getCommand("balance")?.tabCompleter = BalanceCommand()
+        getCommand("pay")?.setExecutor(PayCommand())
+        getCommand("pay")?.tabCompleter = PayCommand()
         logger.info("complete.")
 
         logger.info("loading listener listeners...")

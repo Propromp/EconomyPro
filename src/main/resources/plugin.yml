@@ -2,7 +2,7 @@ name: EconomyPro
 version: @version@
 main: net.propromp.economypro.Main
 api-version: 1.15
-depend: [Vault]
+softdepend: [Vault]
 commands:
   money:
     description: check your balance
