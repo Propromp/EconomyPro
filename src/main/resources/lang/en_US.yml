@@ -38,6 +38,10 @@ command:
     join:
       1: "You have successfully joined the bank account!"
       2: "You are not invited from the bank account"
+  pay:
+    paid: "paid %val1% to %val2%"
+    received: "Received %val1% from %val2%"
+    not_enough_balance: "Not enough balance"
 word:
   name: "name"
   owner: "owner"

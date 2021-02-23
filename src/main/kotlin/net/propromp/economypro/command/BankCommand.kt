@@ -20,8 +20,7 @@ import org.bukkit.ChatColor.WHITE as white
 class BankCommand : CommandExecutor, TabCompleter {
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
         if (args.isEmpty()) {
-            sender.sendMessage("${dred}Not enough arguments")
-            return true
+            return false
         }
         if (sender is Player) {
             if (sender.hasPermission("economypro.bank")) {
