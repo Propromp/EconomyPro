@@ -1,0 +1,66 @@
+command:
+  not_enough_arguments: "引数が足りません"
+  not_owner: "あなたはこの銀行口座のオーナーではないため、このコマンドを実行することが出来ません"
+  not_member: "あなたはこの銀行口座のメンバーではないため、このコマンドを実行することが出来ません"
+  not_owner_or_member: "あなたはこの銀行口座のメンバーまたはオーナーではないため、このコマンドを実行することが出来ません"
+  bank_not_found: "その銀行口座は存在しません"
+  player_not_found: "そのプレイヤーは存在しません"
+  bank_already_exists: "その銀行口座はすでに存在しています"
+  unknown_command: "Unknown command. Type \"/help\" for help."
+  bank:
+    help:
+      help: "ヘルプを表示します"
+      select: "銀行口座を選択します"
+      info: "銀行口座の情報を表示します"
+      delete: "銀行口座を削除します"
+      create: "銀行口座を開設します"
+    select:
+      1: "銀行口座「default」を選択しました"
+      2: "銀行口座「%val1%」を選択しました"
+    info:
+      title: "銀行口座の情報"
+    delete:
+      1: "default銀行口座を削除することは出来ません。"
+      2: "銀行口座を正常に削除しました。"
+      3: "本当に%val1%を削除しますか？"
+      4: "[はい]をクリックした場合%val1%に入っている残高はすべて消えます"
+      5: "[はい]"
+    create:
+      1: "その名前の銀行口座を開設することは出来ません"
+      2: "銀行口座を解説しました。/bank select %val1%を使用することでこの口座を選択することが出来ます。"
+    invite:
+      1: "%val1%を%val2%に招待しました"
+      2: "銀行口座「%val1%」から招待を受け取りました。参加しますか？"
+      3: "[参加]"
+    leave:
+      1: "%val1%から抜けました"
+      2: "この口座から抜ける前に削除してください。"
+    join:
+      1: "銀行口座に参加しました！"
+      2: "あなたはこの銀行口座からの招待を受け取っていません。"
+  pay:
+    paid: "%val2%に%val1%を支払いました"
+    received: "%val2%から%val1%を受け取りました。"
+    not_enough_balance: "残高が足りません。"
+  balance:
+    get: "%val1%の残高:"
+    help:
+      help: "ヘルプを表示します。"
+      set: "[player/bank]の残高を[amount]に設定します。"
+      get: "[player/bank]の残高を表示します"
+      deposit: "[player/bank]の銀行口座に[amount]追加します"
+      withdraw: "[player/bank]の銀行口座から[amount]引き出します"
+    set:
+      1: "%val1%のデフォルト銀行口座の残高を%val2%に設定しました。"
+      2: "%val1%の残高を%val2%に設定しました。"
+    deposit:
+      1: "%val1%のデフォルト銀行口座の残高を%val2%増やしました"
+      2: "%val1%の残高を%val2%増やしました"
+    withdraw:
+      1: "%val1%のデフォルト銀行口座の残高から%val2%減らしました"
+      2: "%val1%の残高から%val2%減らしました。"
+word:
+  name: "名前"
+  owner: "オーナー"
+  members: "メンバー"
+  balance: "残高"
