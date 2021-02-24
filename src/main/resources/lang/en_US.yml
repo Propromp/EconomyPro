@@ -6,7 +6,7 @@ command:
   bank_not_found: "The bank does not exist."
   player_not_found: "The player doesn't exist"
   bank_already_exists: "The bank already exists"
-  unknown_command: "Unknown command. Type /helpUnknown command. Type "/help" for help. for help."
+  unknown_command: "Unknown command. Type \"/help\" for help. for help."
   bank:
     help:
       help: "shows help"
@@ -56,7 +56,7 @@ command:
     deposit:
       1: "deposited %val1%'s default bank to %val2%"
       2: "deposited %val1%'s to %val2%"
-    deposit:
+    withdraw:
       1: "withdraw %val2% from %val1%'s default bank"
       2: "withdraw %val2% from %val1%"
 word:

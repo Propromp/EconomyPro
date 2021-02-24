@@ -48,7 +48,6 @@ class BankDataLoader(plugin: Main, private var economy: ProEconomy, private val 
                         }
                         bank.members = players
                         bank.balance = config.getDouble("$key.balance")
-                        economy.accounts.add(bank)
                         bank
                     }
                     "player" -> {

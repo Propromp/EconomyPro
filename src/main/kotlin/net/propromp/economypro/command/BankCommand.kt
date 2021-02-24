@@ -79,11 +79,15 @@ class BankCommand : CommandExecutor, TabCompleter {
                         }
                         return if (Main.economy.hasAccount(args[1])) {
                             Main.economy.getAccount(args[1])?.let {
+                                var members = mutableListOf<String>()
+                                for (member in it.members) {
+                                    members.add(member.name!!)
+                                }
                                 sender.sendMessage(
                                     "$dgray[$red ${Main.lang.get(sender,"command.bank.info.title")}$dgray - $white${args[1]} $dgray]\n" +
                                             "   ${gold}${Main.lang.get(sender,"word.name")}$dgray»$white ${it.name}\n" +
                                             "   ${gold}${Main.lang.get(sender,"word.owner")}$dgray»$white ${it.owner.name}\n" +
-                                            "   ${gold}${Main.lang.get(sender,"word.members")}$dgray»$white ${it.members}\n" +
+                                            "   ${gold}${Main.lang.get(sender,"word.members")}$dgray»$white ${members}\n" +
                                             "   ${gold}${Main.lang.get(sender,"word.balance")}$dgray»$white ${it.balance}\n"
                                 )
                             }
