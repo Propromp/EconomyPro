@@ -68,7 +68,7 @@ tasks {
     }
 
     dokkaJavadoc {
-        outputDirectory.set(File("doc"))
+        outputDirectory.set(File("docs"))
     }
 
     create<Copy>("buildPlugin") {
