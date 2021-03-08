@@ -1,0 +1,14 @@
+$dokka.format:javadoc-v1
+$dokka.linkExtension:html
+$dokka.location:net.propromp.economypro.enterprise/EnterpriseAccount.Companion///PointingToDeclaration/net/propromp/economypro/enterprise/EnterpriseAccount.Companion.html
+$dokka.location:net.propromp.economypro.enterprise/EnterprisePlayerAccount.Companion///PointingToDeclaration/net/propromp/economypro/enterprise/EnterprisePlayerAccount.Companion.html
+$dokka.location:net.propromp.economypro/Main.Companion///PointingToDeclaration/net/propromp/economypro/Main.Companion.html
+net.propromp.economypro
+net.propromp.economypro.api
+net.propromp.economypro.api.event
+net.propromp.economypro.command
+net.propromp.economypro.enterprise
+net.propromp.economypro.listener
+net.propromp.economypro.vault
+net.propromp.util
+

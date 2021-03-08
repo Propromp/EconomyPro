@@ -3,6 +3,7 @@ import de.undercouch.gradle.tasks.download.Download
 plugins {
     java
     kotlin("jvm") version "1.4.20"
+    id("org.jetbrains.dokka") version "1.4.20"
     id("com.github.johnrengelman.shadow") version "5.2.0"
 }
 
@@ -64,6 +65,10 @@ tasks {
 
     shadowJar {
         archiveFileName.set("$pluginName v$pluginVersion.jar")
+    }
+
+    dokkaJavadoc {
+        outputDirectory.set(File("doc"))
     }
 
     create<Copy>("buildPlugin") {
