@@ -30,7 +30,7 @@ repositories {
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
     implementation("org.jetbrains.kotlinx", "kotlinx-coroutines-core", "latest.release")
-    implementation("com.github.the-h-team:Enterprise:1.4")
+    implementation("com.github.the-h-team:Enterprise:1.5")
     compileOnly("com.destroystokyo.paper", "paper-api", paperVersion)
     compileOnly("com.github.MilkBowl:VaultAPI:1.7")
 }
@@ -67,7 +67,13 @@ tasks {
     }
 
     create<Copy>("buildPlugin") {
-        File("$serverDirectory/plugins")
+        File("$serverDirectory/plugins").listFiles().forEach{
+            if(it.name.contains(pluginName)&&it.isFile){
+                File("oldbuilds").mkdir()
+                it.copyTo(File("oldbuilds/${it.name}"),true, DEFAULT_BUFFER_SIZE)
+                it.delete()
+            }
+        }
         from(shadowJar)
         into("$serverDirectory/plugins")
     }

@@ -7,6 +7,13 @@ command:
   player_not_found: "そのプレイヤーは存在しません"
   bank_already_exists: "その銀行口座はすでに存在しています"
   unknown_command: "Unknown command. Type \"/help\" for help."
+  help:
+    money: "自分の残高を確認します"
+    bank: "銀行口座を管理します(/bank help)"
+    balance: "残高を管理します(/balance help)"
+    pay: "<player>に<amount>を払います"
+    economypro: "ヘルプを表示 & 設定(/economypro help)"
+    balancetop: "長者番付を表示します。"
   bank:
     help:
       help: "ヘルプを表示します"
@@ -59,6 +66,15 @@ command:
     withdraw:
       1: "%val1%のデフォルト銀行口座の残高から%val2%減らしました"
       2: "%val1%の残高から%val2%減らしました。"
+  economypro:
+    help:
+      enterprise: "EnterpriseAPIのフックの設定を変更します"
+    enterprise:
+      true: "EnterpriseAPIにフックされています。"
+      false: "EnterpriseAPIにフックされていません"
+      hook: "EnterpriseAPIにフックしました"
+      unhook: "EnterpriseAPIのフックを解除しました"
+      else: "hook or unhook"
 word:
   name: "名前"
   owner: "オーナー"

@@ -16,7 +16,7 @@ commands:
     description: pay <player> <amount>
     usage: /pay <player> <amount>
   economypro:
-    description: shows help
+    description: shows help & settings
   balancetop:
     description: Displays Top 10
 permissions:
@@ -40,7 +40,9 @@ permissions:
     default: true
   economypro.pay:
     default: true
-  economypro.economypro:
+  economypro.economypro.help:
     default: true
+  economypro.economypro.settings:
+    default: op
   economypro.balncetop:
     default: true

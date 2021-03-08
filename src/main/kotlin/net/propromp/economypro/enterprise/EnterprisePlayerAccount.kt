@@ -4,30 +4,24 @@ import com.github.sanctum.economy.construct.EconomyAction
 import com.github.sanctum.economy.construct.account.Account
 import com.github.sanctum.economy.construct.account.permissive.AccountType
 import com.github.sanctum.economy.construct.entity.EconomyEntity
-import net.propromp.economypro.api.NormalBankAccount
+import net.propromp.economypro.api.PlayerBankAccount
 import org.bukkit.Bukkit
 import org.bukkit.OfflinePlayer
 import java.math.BigDecimal
 import java.util.*
 
-class EnterpriseAccount(
+class EnterprisePlayerAccount(
     accountType: AccountType?,
     holder: EconomyEntity, vararg members: EconomyEntity,
 ) : Account(accountType, holder, *members) {
-    lateinit var account: NormalBankAccount
+    lateinit var account: PlayerBankAccount
 
     companion object {
-        fun get(bankAccount: NormalBankAccount): EnterpriseAccount {
+        fun get(bankAccount: PlayerBankAccount): EnterprisePlayerAccount {
             val accountType = AccountType.BANK_ACCOUNT
-            var holder = EconomyEntity { "null" }
-            bankAccount.owner?.let {
-                holder = PlayerEconomyEntity(it)
-            }
+            val holder = PlayerEconomyEntity(bankAccount.player)
             val members = mutableListOf<EconomyEntity>()
-            bankAccount.members.forEach {
-                members.add(PlayerEconomyEntity(it))
-            }
-            val eAccount = EnterpriseAccount(accountType, holder, *members.toTypedArray())
+            val eAccount = EnterprisePlayerAccount(accountType, holder, *members.toTypedArray())
             eAccount.account = bankAccount
             return eAccount
         }
@@ -148,7 +142,7 @@ class EnterpriseAccount(
     }
 
     override fun isOwner(name: String): EconomyAction {
-        return EconomyAction(holder, account.isOwner(Bukkit.getOfflinePlayer(name)), "deprecated")
+        return EconomyAction(holder, account.player == Bukkit.getOfflinePlayer(name), "deprecated")
     }
 
     override fun isOwner(name: String?, world: String?): EconomyAction {
@@ -156,7 +150,7 @@ class EnterpriseAccount(
     }
 
     override fun isOwner(player: OfflinePlayer): EconomyAction {
-        return EconomyAction(holder, account.isOwner(player), "ok")
+        return EconomyAction(holder, account.player == player, "ok")
     }
 
     override fun isOwner(player: OfflinePlayer?, world: String?): EconomyAction {
@@ -164,7 +158,7 @@ class EnterpriseAccount(
     }
 
     override fun isOwner(uuid: UUID): EconomyAction {
-        return EconomyAction(holder, account.isOwner(Bukkit.getOfflinePlayer(uuid)), "ok")
+        return EconomyAction(holder, account.player == Bukkit.getOfflinePlayer(uuid), "ok")
     }
 
     override fun isOwner(uuid: UUID?, world: String?): EconomyAction {
@@ -196,7 +190,7 @@ class EnterpriseAccount(
     }
 
     override fun isMember(name: String): EconomyAction {
-        return EconomyAction(holder, account.isMember(Bukkit.getOfflinePlayer(name)), "ok")
+        return isOwner(name)
     }
 
     override fun isMember(name: String?, world: String?): EconomyAction {
@@ -204,7 +198,7 @@ class EnterpriseAccount(
     }
 
     override fun isMember(player: OfflinePlayer): EconomyAction {
-        return EconomyAction(holder, account.isMember(player), "ok")
+        return isOwner(player)
     }
 
     override fun isMember(player: OfflinePlayer?, world: String?): EconomyAction {
@@ -212,7 +206,7 @@ class EnterpriseAccount(
     }
 
     override fun isMember(uuid: UUID): EconomyAction {
-        return EconomyAction(holder, account.isMember(Bukkit.getOfflinePlayer(uuid)), "ok")
+        return isOwner(uuid)
     }
 
     override fun isMember(uuid: UUID?, world: String?): EconomyAction {
@@ -230,11 +224,7 @@ class EnterpriseAccount(
     }
 
     override fun addMember(player: OfflinePlayer): EconomyAction {
-        if (!members.contains(player)) {
-            account.members.add(player)
-            return EconomyAction(holder, true, "ok")
-        }
-        return EconomyAction(holder, false, "The player is already a member")
+        return EconomyAction(holder, false, "You cannot add member to player account")
     }
 
     override fun addMember(player: OfflinePlayer?, world: String?): EconomyAction {
@@ -262,12 +252,7 @@ class EnterpriseAccount(
     }
 
     override fun removeMember(player: OfflinePlayer): EconomyAction {
-        return if (account.members.contains(player)) {
-            account.members.remove(player)
-            EconomyAction(holder, true, "ok")
-        } else {
-            EconomyAction(holder, false, "the player isn't part of the bank account")
-        }
+        return EconomyAction(holder, false, "You cannot remove member from player account")
     }
 
     override fun removeMember(player: OfflinePlayer?, world: String?): EconomyAction {

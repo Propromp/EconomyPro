@@ -1,23 +1,30 @@
 package net.propromp.economypro.enterprise
 
 import com.github.sanctum.economy.construct.EconomyAction
+import com.github.sanctum.economy.construct.account.Account
 import com.github.sanctum.economy.construct.account.Wallet
-import com.github.sanctum.economy.construct.entity.EconomyEntity
-import net.propromp.economypro.Main
+import net.propromp.economypro.api.BankAccount
 import java.math.BigDecimal
 
-class EnterpriseWallet(name:String): Wallet(EconomyEntity { name }){
-    var account = Main.economy.getAccount(name)
+class EnterpriseWallet(eAccount: Account) : Wallet(eAccount.holder) {
+    var account: BankAccount = if (eAccount is EnterpriseAccount) {
+        eAccount.account
+    } else if (eAccount is EnterprisePlayerAccount) {
+        eAccount.account
+    } else {
+        null!!
+    }
+
     /**
      * Attempt to deposit an amount
      * @param amount [BigDecimal] amount
      */
     override fun deposit(amount: BigDecimal): EconomyAction {
-        if(exists()) {
-            account?.deposit(amount.toDouble())
-            return EconomyAction(amount,holder,true,"ok")
+        if (exists()) {
+            account.deposit(amount.toDouble())
+            return EconomyAction(amount, holder, true, "ok")
         }
-        return EconomyAction(BigDecimal(0),holder,false,"failure")
+        return EconomyAction(BigDecimal(0), holder, false, "failure")
     }
 
     /**
@@ -26,7 +33,7 @@ class EnterpriseWallet(name:String): Wallet(EconomyEntity { name }){
      * @param world Name of world
      */
     override fun deposit(amount: BigDecimal?, world: String?): EconomyAction {
-        return EconomyAction(BigDecimal(0),holder,false,"not implemented")
+        return EconomyAction(BigDecimal(0), holder, false, "not implemented")
     }
 
     /**
@@ -34,11 +41,11 @@ class EnterpriseWallet(name:String): Wallet(EconomyEntity { name }){
      * @param amount [BigDecimal] amount
      */
     override fun withdraw(amount: BigDecimal): EconomyAction {
-        if(exists()) {
-            account?.withdraw(amount.toDouble())
-            return EconomyAction(amount,holder,true,"ok")
+        if (exists()) {
+            account.withdraw(amount.toDouble())
+            return EconomyAction(amount, holder, true, "ok")
         }
-        return EconomyAction(BigDecimal(0),holder,false,"failure")
+        return EconomyAction(BigDecimal(0), holder, false, "failure")
     }
 
     /**
@@ -47,7 +54,7 @@ class EnterpriseWallet(name:String): Wallet(EconomyEntity { name }){
      * @param world Name of world
      */
     override fun withdraw(amount: BigDecimal?, world: String?): EconomyAction {
-        return EconomyAction(BigDecimal(0),holder,false,"not implemented")
+        return EconomyAction(BigDecimal(0), holder, false, "not implemented")
     }
 
     /**
@@ -57,7 +64,7 @@ class EnterpriseWallet(name:String): Wallet(EconomyEntity { name }){
      * @param amount New amount
      */
     override fun setBalance(amount: BigDecimal) {
-        account?.balance=amount.toDouble()
+        account.balance = amount.toDouble()
     }
 
     /**
@@ -76,7 +83,7 @@ class EnterpriseWallet(name:String): Wallet(EconomyEntity { name }){
      * @return true if exists, false otherwise
      */
     override fun exists(): Boolean {
-        return account!=null
+        return true
     }
 
     /**
@@ -95,7 +102,7 @@ class EnterpriseWallet(name:String): Wallet(EconomyEntity { name }){
      * @return value as a [BigDecimal] if present or null
      */
     override fun getBalance(): BigDecimal {
-        return BigDecimal(account?.balance ?: 0.0)
+        return BigDecimal(account.balance)
     }
 
     /**
@@ -115,7 +122,7 @@ class EnterpriseWallet(name:String): Wallet(EconomyEntity { name }){
      * @return true if balance >= to amount, false otherwise
      */
     override fun has(amount: BigDecimal): Boolean {
-        return account?.has(amount.toDouble()) ?: false
+        return account.has(amount.toDouble())
     }
 
     /**

@@ -85,7 +85,7 @@ class ProEconomy(val plural: String, val singular: String) {
      * @param owner owner of the bank
      * @return bankAccount made
      */
-    fun createAccount(name: String, owner: OfflinePlayer): NormalBankAccount? {
+    fun createAccount(name: String, owner: OfflinePlayer?): NormalBankAccount? {
         if (hasAccount(name)) {
             return null
         } else {
@@ -99,7 +99,7 @@ class ProEconomy(val plural: String, val singular: String) {
 
     /**
      * delete the bank
-     * @param the name of the bank
+     * @param name the name of the bank
      * @return Was it deleted successfully?
      */
     fun deleteAccount(name:String):Boolean{

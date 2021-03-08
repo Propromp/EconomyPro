@@ -7,6 +7,13 @@ command:
   player_not_found: "The player doesn't exist"
   bank_already_exists: "The bank already exists"
   unknown_command: "Unknown command. Type \"/help\" for help. for help."
+  help:
+    money: "check your balance"
+    bank: "manage your bank account(/bank help)"
+    balance: "manage balance(/balance help)"
+    pay: "pay <player> <amount>"
+    economypro: "shows help & settings(/economypro help)"
+    balancetop: "Displays Top 10"
   bank:
     help:
       help: "shows help"
@@ -59,6 +66,21 @@ command:
     withdraw:
       1: "withdraw %val2% from %val1%'s default bank"
       2: "withdraw %val2% from %val1%"
+  economypro:
+    help:
+      enterprise: "hook or unhook enterprise API"
+    enterprise:
+      true: "EnterpriseAPI is hooked"
+      false: "EnterpriseAPI isn't hooked"
+      hook: "Hooked to Enterprise API"
+      unhook: "Unhooked to Enterprise API"
+      else: "hook or unhook"
+    vault:
+      true: "Vault economy is hooked"
+      false: "Vault economy isn't hooked"
+      hook: "Hooked to Vault economy"
+      unhook: "Unhooked to Vault economy"
+      else: "hook or unhook"
 word:
   name: "name"
   owner: "owner"
