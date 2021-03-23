@@ -62,7 +62,7 @@ class ProEconomy(val plural: String, val singular: String) {
     fun getAccount(name: String): NormalBankAccount? {
         accounts.forEach {
             if (it is NormalBankAccount) {
-                if (it.name == name) {
+                if (it.name.equals(name,true)) {
                     return it
                 }
             }

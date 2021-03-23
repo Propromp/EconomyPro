@@ -24,8 +24,8 @@ class PayCommand :CommandExecutor,TabCompleter{
                     if (senderAccount.has(amount)) {
                         senderAccount.withdraw(amount)
                         targetAccount.deposit(amount)
-                        sender.sendMessage("${ChatColor.AQUA}${Main.lang.get(sender,"command.pay.paid").replace("%val1%",Main.economy.plural).replace("%val2%",target.name)}")
-                        target.sendMessage("${ChatColor.AQUA}${Main.lang.get(sender,"command.pay.received").replace("%val1%",Main.economy.plural).replace("%val2%",target.name)}")
+                        sender.sendMessage("${ChatColor.AQUA}${Main.lang.get(sender,"command.pay.paid").replace("%val1%",amount.toString()+Main.economy.plural).replace("%val2%",target.name)}")
+                        target.sendMessage("${ChatColor.AQUA}${Main.lang.get(sender,"command.pay.received").replace("%val1%",amount.toString()+Main.economy.plural).replace("%val2%",target.name)}")
                         sender.playSound(sender.location, Sound.ENTITY_EXPERIENCE_ORB_PICKUP,1.0f,1.0f)
                         target.playSound(sender.location, Sound.ENTITY_EXPERIENCE_ORB_PICKUP,1.0f,1.0f)
                         return true

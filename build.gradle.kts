@@ -64,7 +64,7 @@ tasks {
     }
 
     shadowJar {
-        archiveFileName.set("$pluginName v$pluginVersion.jar")
+        archiveFileName.set("$pluginName-v$pluginVersion.jar")
     }
 
     dokkaJavadoc {
@@ -74,8 +74,8 @@ tasks {
     create<Copy>("buildPlugin") {
         File("$serverDirectory/plugins").listFiles().forEach{
             if(it.name.contains(pluginName)&&it.isFile){
-                File("oldbuilds").mkdir()
-                it.copyTo(File("oldbuilds/${it.name}"),true, DEFAULT_BUFFER_SIZE)
+                File("build/oldbuilds").mkdir()
+                it.copyTo(File("build/oldbuilds/${it.name}"),true, DEFAULT_BUFFER_SIZE)
                 it.delete()
             }
         }

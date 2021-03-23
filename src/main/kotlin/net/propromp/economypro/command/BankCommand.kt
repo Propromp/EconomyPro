@@ -48,6 +48,18 @@ class BankCommand : CommandExecutor, TabCompleter {
                                         Main.lang.get(sender,
                                             "command.bank.help.create")
                                     }\n" +
+                                    "$gold/bank invite [bankName] [player]$dgray»$white ${
+                                        Main.lang.get(sender,
+                                            "command.bank.help.invite")
+                                    }\n" +
+                                    "$gold/bank join [bankName]$dgray»$white ${
+                                        Main.lang.get(sender,
+                                            "command.bank.help.join")
+                                    }\n" +
+                                    "$gold/bank leave [bankName]$dgray»$white ${
+                                        Main.lang.get(sender,
+                                            "command.bank.help.leave")
+                                    }\n" +
                                     "$dgray---------------------------------------------"
                         )
                         return true
@@ -80,7 +92,7 @@ class BankCommand : CommandExecutor, TabCompleter {
                     }
                     "info" -> {
                         if (args.size < 2) {
-                            sender.sendMessage("${dred}${Main.lang.get(sender, "not_enough_arguments")}")
+                            sender.sendMessage("${dred}${Main.lang.get(sender, "command.not_enough_arguments")}")
                             return true
                         }
                         if (args[1] == "default") {
@@ -207,12 +219,16 @@ class BankCommand : CommandExecutor, TabCompleter {
                         }
                         Main.economy.getAccount(args[1])?.let { account ->
                             Bukkit.getPlayer(args[2])?.let { target ->
+                                if(account.isMember(target)){
+                                    sender.sendMessage(red.toString()+Main.lang.get(sender,"command.bank.invite.already_member"))
+                                    return true
+                                }
                                 account.addInvited(target)
                                 sender.sendMessage(Main.lang.get(sender, "command.bank.invite.1")
                                     .replace("%val1%", target.name)
                                     .replace("%val2%", account.name))
                                 target.sendMessage(Main.lang.get(sender, "command.bank.invite.2")
-                                    .replace("%val1", account.name))
+                                    .replace("%val1%", account.name))
                                 val text = TextComponent("   ")
                                 val join = TextComponent(Main.lang.get(sender, "command.bank.invite.3"))
                                 join.clickEvent =

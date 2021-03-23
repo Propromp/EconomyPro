@@ -25,13 +25,14 @@ class BalanceCommand:CommandExecutor,TabCompleter {
                 }
                 Bukkit.getPlayer(args[0])?.let {
                     sender.sendMessage(
-                        "${Main.lang.get(sender,"command.balance.get").replace("%val1%","${Main.economy.getSelectedAccount(it).name}(${it.name})")}" + gold + Main.economy.getSelectedAccount(
+                        Main.lang.get(sender,"command.balance.get").replace("%val1%",
+                            Main.economy.getDefaultAccount(it)!!.name) + gold + Main.economy.getSelectedAccount(
                             it
                         ).balance
                     )
                 }
                 Main.economy.getAccount(args[0])?.let {
-                    sender.sendMessage("${Main.lang.get(sender,"command.balance.get").replace("%val1%",it.name)}" + gold + it.balance)
+                    sender.sendMessage(Main.lang.get(sender,"command.balance.get").replace("%val1%",it.name) + gold + it.balance)
                 }
             }
         }
@@ -73,7 +74,7 @@ class BalanceCommand:CommandExecutor,TabCompleter {
                             Main.economy.getDefaultAccount(Bukkit.getPlayer(args[1])!!)?.let {
                                 args[2].toDoubleOrNull()?.run {
                                     it.balance += this
-                                    sender.sendMessage("${aqua}${Main.lang.get(sender, "command.deposit.set.1").replace("%val1%",args[1]).replace("%val2%",args[2])}")
+                                    sender.sendMessage("${aqua}${Main.lang.get(sender, "command.balance.deposit.1").replace("%val1%",args[1]).replace("%val2%",args[2])}")
                                     return true
                                 }
                             }
@@ -81,7 +82,7 @@ class BalanceCommand:CommandExecutor,TabCompleter {
                             Main.economy.getAccount(args[1])?.let {
                                 args[2].toDoubleOrNull()?.run {
                                     it.balance += this
-                                    sender.sendMessage("$aqua${Main.lang.get(sender, "command.deposit.set.2").replace("%val1%",args[1]).replace("%val2%",args[2])}")
+                                    sender.sendMessage("$aqua${Main.lang.get(sender, "command.balance.deposit.2").replace("%val1%",args[1]).replace("%val2%",args[2])}")
                                     return true
                                 }
                             }
@@ -92,7 +93,7 @@ class BalanceCommand:CommandExecutor,TabCompleter {
                             Main.economy.getDefaultAccount(Bukkit.getPlayer(args[1])!!)?.let {
                                 args[2].toDoubleOrNull()?.run {
                                     it.balance -= this
-                                    sender.sendMessage("${aqua}${Main.lang.get(sender, "command.withdraw.set.1").replace("%val1%",args[1]).replace("%val2%",args[2])}")
+                                    sender.sendMessage("${aqua}${Main.lang.get(sender, "command.balance.withdraw.1").replace("%val1%",args[1]).replace("%val2%",args[2])}")
                                     return true
                                 }
                             }
@@ -100,7 +101,7 @@ class BalanceCommand:CommandExecutor,TabCompleter {
                             Main.economy.getAccount(args[1])?.let {
                                 args[2].toDoubleOrNull()?.run {
                                     it.balance -= this
-                                    sender.sendMessage("${aqua}${Main.lang.get(sender, "command.withdraw.set.2").replace("%val1%",args[1]).replace("%val2%",args[2])}")
+                                    sender.sendMessage("${aqua}${Main.lang.get(sender, "command.balance.withdraw.2").replace("%val1%",args[1]).replace("%val2%",args[2])}")
                                     return true
                                 }
                             }
@@ -134,17 +135,24 @@ class BalanceCommand:CommandExecutor,TabCompleter {
                     if(sender.hasPermission("economypro.balance.set")){
                         res.addAll(listOf("help", "set","deposit","withdraw"))
                     }
-                    return res.filter { it.startsWith(args[0]) }.toMutableList()
+                    return res.filter { it.startsWith(args[0],true) }.toMutableList()
                 }
                 2 -> {
-                    var res = mutableListOf<String>()
-                    Bukkit.getOnlinePlayers().forEach {
-                        res.add(it.name)
+                    return when(args[0]){
+                        "set","deposit","withdraw"->{
+                            var res = mutableListOf<String>()
+                            Main.economy.accounts.forEach{
+                                res.add(it.name)
+                            }
+                            return res.filter{it.startsWith(args[1],true)}.toMutableList()
+                        }
+                        else->{
+                            mutableListOf()
+                        }
                     }
-                    Main.economy.accounts.filterIsInstance<NormalBankAccount>().forEach {
-                        res.add(it.name)
-                    }
-                    return res.filter { it.startsWith(args[0]) }.toMutableList()
+                }
+                3->{
+                    mutableListOf("[amount]")
                 }
                 else-> mutableListOf()
             }

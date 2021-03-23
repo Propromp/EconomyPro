@@ -17,10 +17,13 @@ command:
   bank:
     help:
       help: "shows help"
-      select: "select a bank"
-      info: "shows the information of the bank"
-      delete: "delete the bank"
-      create: "create a bank"
+      select: "select a bank account"
+      info: "shows the information of the bank account"
+      delete: "delete the bank account"
+      create: "create a bank account"
+      join: "join to the bank account"
+      leave: "leave from the bank account"
+      invite: "invite a player to bank account"
     select:
       1: "selected default as the default bank"
       2: "selected %val1% as the default bank"
@@ -39,6 +42,7 @@ command:
       1: "Invited %val1% to %val2%"
       2: "You received an invitation from bank account %val1%"
       3: "[join]"
+      already_member: "そのプレイヤーはすでに口座のメンバーです。"
     leave:
       1: "You have left from bank account %val1%"
       2: "You have to delete the bank before you leave the bank"
@@ -69,6 +73,7 @@ command:
   economypro:
     help:
       enterprise: "hook or unhook enterprise API"
+      vault: "hook or unhook Vault"
     enterprise:
       true: "EnterpriseAPI is hooked"
       false: "EnterpriseAPI isn't hooked"
@@ -81,6 +86,8 @@ command:
       hook: "Hooked to Vault economy"
       unhook: "Unhooked to Vault economy"
       else: "hook or unhook"
+  balancetop:
+    title: "所持金ランキング"
 word:
   name: "name"
   owner: "owner"

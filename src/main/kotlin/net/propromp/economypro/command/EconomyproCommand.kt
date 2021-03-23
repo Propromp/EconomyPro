@@ -40,6 +40,10 @@ class EconomyproCommand : CommandExecutor, TabCompleter {
                                     Main.lang.get(sender,
                                         "command.economypro.help.enterprise")
                                 }\n" +
+                                "$gold/economypro vault [hook/unhook]$dgray»$white ${
+                                    Main.lang.get(sender,
+                                        "command.economypro.help.vault")
+                                }\n" +
                                 "$dgray---------------------------------------------"
                     )
                     return true

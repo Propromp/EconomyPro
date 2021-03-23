@@ -60,6 +60,7 @@ class Main : JavaPlugin() {
         getCommand("pay")?.tabCompleter = PayCommand()
         getCommand("economypro")?.setExecutor(EconomyproCommand())
         getCommand("economypro")?.tabCompleter = EconomyproCommand()
+        getCommand("balancetop")?.setExecutor(BalancetopCommand())
         logger.info("complete.")
 
         logger.info("loading listener listeners...")
