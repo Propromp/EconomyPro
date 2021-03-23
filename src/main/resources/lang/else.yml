@@ -1,0 +1,95 @@
+command:
+  not_enough_arguments: "Not enough arguments"
+  not_owner: "You have to be a owner of the bank to perform this command"
+  not_member: "You have to be a member of the bank to perform this command"
+  not_owner_or_member: "You have to be a member or a owner of the bank to perform this command"
+  bank_not_found: "The bank does not exist."
+  player_not_found: "The player doesn't exist"
+  bank_already_exists: "The bank already exists"
+  unknown_command: "Unknown command. Type \"/help\" for help. for help."
+  help:
+    money: "check your balance"
+    bank: "manage your bank account(/bank help)"
+    balance: "manage balance(/balance help)"
+    pay: "pay <player> <amount>"
+    economypro: "shows help & settings(/economypro help)"
+    balancetop: "Displays Top 10"
+  bank:
+    help:
+      help: "shows help"
+      select: "select a bank account"
+      info: "shows the information of the bank account"
+      delete: "delete the bank account"
+      create: "create a bank account"
+      join: "join to the bank account"
+      leave: "leave from the bank account"
+      invite: "invite a player to bank account"
+    select:
+      1: "selected default as the default bank"
+      2: "selected %val1% as the default bank"
+    info:
+      title: "BankInfo"
+    delete:
+      1: "You can not delete default bank account"
+      2: "deleted the bank account successfully"
+      3: "Do you really want to delete %val1% ?"
+      4: "By pressing [yes] The money in %val1% will disappear"
+      5: "[yes]"
+    create:
+      1: "You cannnot create a bank account with this name"
+      2: "created a bank account. You can select the account with /bank select %val1%"
+    invite:
+      1: "Invited %val1% to %val2%"
+      2: "You received an invitation from bank account %val1%"
+      3: "[join]"
+      already_member: "そのプレイヤーはすでに口座のメンバーです。"
+    leave:
+      1: "You have left from bank account %val1%"
+      2: "You have to delete the bank before you leave the bank"
+    join:
+      1: "You have successfully joined the bank account!"
+      2: "You are not invited from the bank account"
+  pay:
+    paid: "paid %val1% to %val2%"
+    received: "Received %val1% from %val2%"
+    not_enough_balance: "Not enough balance"
+  balance:
+    get: "balance of %val1%:"
+    help:
+      help: "shows help"
+      set: "set the balance of [player/bank] to the [amount]"
+      get: "get the balance of [player/bank]"
+      deposit: "deposit [amount] to [player/bank]"
+      withdraw: "withdraw [amount] from [player/bank]"
+    set:
+      1: "set the balance of %val1%'s default bank to %val2"
+      2: "set the balance of %val1 to %val2%"
+    deposit:
+      1: "deposited %val1%'s default bank to %val2%"
+      2: "deposited %val1%'s to %val2%"
+    withdraw:
+      1: "withdraw %val2% from %val1%'s default bank"
+      2: "withdraw %val2% from %val1%"
+  economypro:
+    help:
+      enterprise: "hook or unhook enterprise API"
+      vault: "hook or unhook Vault"
+    enterprise:
+      true: "EnterpriseAPI is hooked"
+      false: "EnterpriseAPI isn't hooked"
+      hook: "Hooked to Enterprise API"
+      unhook: "Unhooked to Enterprise API"
+      else: "hook or unhook"
+    vault:
+      true: "Vault economy is hooked"
+      false: "Vault economy isn't hooked"
+      hook: "Hooked to Vault economy"
+      unhook: "Unhooked to Vault economy"
+      else: "hook or unhook"
+  balancetop:
+    title: "所持金ランキング"
+word:
+  name: "name"
+  owner: "owner"
+  members: "members"
+  balance: "balance"

@@ -11,10 +11,11 @@ class PELang(plugin: Main) {
     init {
         langFiles["en_us"] = CustomConfig(plugin, "lang/en_US.yml").let { it.saveDefaultConfig();it.config }
         langFiles["ja_jp"] = CustomConfig(plugin, "lang/ja_JP.yml").let { it.saveDefaultConfig();it.config }
+        langFiles["else"] = CustomConfig(plugin, "lang/else.yml").let { it.saveDefaultConfig();it.config }
     }
 
     fun get(sender: CommandSender, key: String): String {
-        var config: FileConfiguration = langFiles["en_us"]!!
+        var config: FileConfiguration = langFiles["else"]!!
         if (sender is Player) {
             langFiles[sender.locale]?.let {
                 config = it
