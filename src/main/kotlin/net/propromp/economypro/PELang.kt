@@ -4,9 +4,18 @@ import net.propromp.util.CustomConfig
 import org.bukkit.command.CommandSender
 import org.bukkit.configuration.file.FileConfiguration
 import org.bukkit.entity.Player
+import java.lang.reflect.Method
 
 class PELang(plugin: Main) {
     private var langFiles = HashMap<String, FileConfiguration>()
+    private var hasLocaleSupport = hasLocaleMethod()
+    private fun hasLocaleMethod():Boolean{
+        Player::class.java.methods.forEach {
+            if (it.name == "getLocale")
+                return true
+        }
+        return false
+    }
 
     init {
         langFiles["en_us"] = CustomConfig(plugin, "lang/en_US.yml").let { it.saveDefaultConfig();it.config }
@@ -16,12 +25,13 @@ class PELang(plugin: Main) {
 
     fun get(sender: CommandSender, key: String): String {
         var config: FileConfiguration = langFiles["else"]!!
-        if (sender is Player) {
-            langFiles[sender.locale]?.let {
-                config = it
+        if(hasLocaleSupport) {
+            if (sender is Player) {
+                langFiles[sender.locale]?.let {
+                    config = it
+                }
             }
         }
         return config.getString(key)!!.replace("&", "§")
-
     }
 }

@@ -10,11 +10,12 @@ import org.bukkit.plugin.ServicePriority
 
 
 class EconomyHook(val plugin: Main, val economy: ProEconomy) {
-    private var enterpriseProvider = EnterpriseEconomy(plugin, economy)
-    private var vaultProvider = VaultEconomy(economy)
+    private lateinit var enterpriseProvider:EnterpriseEconomy
+    private lateinit var vaultProvider:VaultEconomy
     var isEnterpriseHooked = false
     var isVaultHooked = false
     fun hookEnterprise() {
+        enterpriseProvider = EnterpriseEconomy(plugin, economy)
         Bukkit.getServicesManager().register(AdvancedEconomy::class.java, enterpriseProvider,
             plugin, ServicePriority.Normal)
         isEnterpriseHooked = true
@@ -28,6 +29,7 @@ class EconomyHook(val plugin: Main, val economy: ProEconomy) {
     }
 
     fun hookVault() {
+        vaultProvider = VaultEconomy(economy)
         Bukkit.getServicesManager().register(Economy::class.java, vaultProvider, plugin, ServicePriority.Normal)
         isVaultHooked = true
         plugin.logger.info("- Vault economy hooked! Now registered as a provider")
