@@ -64,7 +64,7 @@ tasks {
     }
 
     shadowJar {
-        archiveFileName.set("$pluginName-v$pluginVersion.jar")
+        archiveFileName.set("$pluginName-$pluginVersion.jar")
     }
 
     dokkaJavadoc {
