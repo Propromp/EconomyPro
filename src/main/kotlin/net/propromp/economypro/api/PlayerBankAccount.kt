@@ -4,7 +4,13 @@ import org.bukkit.OfflinePlayer
 import org.bukkit.World
 
 class PlayerBankAccount(val player: OfflinePlayer) : BankAccount {
-    override var name = player.name!!
+    override val name:String
+        get(){
+            player.name?.let{
+                return it
+            }
+            return "offline"
+        }
     override var balance: Double
         get() {
             return if (player.isOnline) {//online

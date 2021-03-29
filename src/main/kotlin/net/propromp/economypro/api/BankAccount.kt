@@ -6,7 +6,7 @@ import org.bukkit.Bukkit
 
 interface BankAccount {
     var balance:Double
-    var name:String
+    val name:String
     fun deposit(amount:Double){
         val event = BankDepositEvent(this,amount)
         Bukkit.getPluginManager().callEvent(event)
