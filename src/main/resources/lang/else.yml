@@ -87,7 +87,8 @@ command:
       unhook: "Unhooked to Vault economy"
       else: "hook or unhook"
   balancetop:
-    title: "所持金ランキング"
+    title: "Top ranking"
+    val: "[val1] place:[val2]([val3])"
 word:
   name: "name"
   owner: "owner"

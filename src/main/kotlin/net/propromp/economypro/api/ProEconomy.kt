@@ -5,9 +5,12 @@ import net.propromp.economypro.api.event.DeleteBankAccountEvent
 import net.propromp.economypro.api.event.SelectBankAccountEvent
 import org.bukkit.Bukkit
 import org.bukkit.OfflinePlayer
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 class ProEconomy(val plural: String, val singular: String) {
-    internal var selectedAccounts = HashMap<OfflinePlayer, BankAccount>()
+    internal var selectedAccounts = HashMap<UUID, BankAccount>()
     internal var accounts = ArrayList<BankAccount>()
 
     /**
@@ -19,7 +22,7 @@ class ProEconomy(val plural: String, val singular: String) {
     fun getDefaultAccount(player: OfflinePlayer): PlayerBankAccount? {
         accounts.forEach {
             if (it is PlayerBankAccount) {
-                if (it.player == player) {
+                if (it.uuid == player.uniqueId) {
                     return it
                 }
             }
@@ -48,7 +51,7 @@ class ProEconomy(val plural: String, val singular: String) {
             PlayerBankAccount(player).let {
                 Bukkit.getPluginManager().callEvent(CreateBankAccountEvent(it))
                 accounts.add(it)
-                selectedAccounts[player] = it
+                selectedAccounts[player.uniqueId] = it
                 return it
             }
         }
@@ -85,7 +88,7 @@ class ProEconomy(val plural: String, val singular: String) {
      * @param owner owner of the bank
      * @return bankAccount made
      */
-    fun createAccount(name: String, owner: OfflinePlayer?): NormalBankAccount? {
+    fun createAccount(name: String, owner: OfflinePlayer): NormalBankAccount? {
         if (hasAccount(name)) {
             return null
         } else {
@@ -113,7 +116,7 @@ class ProEconomy(val plural: String, val singular: String) {
 
     fun selectAccount(player: OfflinePlayer,bankAccount: BankAccount){
         Bukkit.getPluginManager().callEvent(SelectBankAccountEvent(bankAccount,player))
-        selectedAccounts[player]=bankAccount
+        selectedAccounts[player.uniqueId]=bankAccount
     }
     fun getSelectedAccount(player: OfflinePlayer):BankAccount{
         return selectedAccounts[player]!!

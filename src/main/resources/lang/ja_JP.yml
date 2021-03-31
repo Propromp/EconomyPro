@@ -21,9 +21,6 @@ command:
       info: "銀行口座の情報を表示します"
       delete: "銀行口座を削除します"
       create: "銀行口座を開設します"
-      join: "銀行口座に参加します"
-      leave: "銀行口座から抜けます"
-      invite: "銀行口座に人を招待します。"
     select:
       1: "銀行口座「default」を選択しました"
       2: "銀行口座「%val1%」を選択しました"
@@ -42,7 +39,6 @@ command:
       1: "%val1%を%val2%に招待しました"
       2: "銀行口座「%val1%」から招待を受け取りました。参加しますか？"
       3: "[参加]"
-      already_member: "そのプレイヤーはすでに口座のメンバーです。"
     leave:
       1: "%val1%から抜けました"
       2: "この口座から抜ける前に削除してください。"
@@ -73,21 +69,15 @@ command:
   economypro:
     help:
       enterprise: "EnterpriseAPIのフックの設定を変更します"
-      vault: "Vaultのフックの設定を変更します"
     enterprise:
       true: "EnterpriseAPIにフックされています。"
       false: "EnterpriseAPIにフックされていません"
       hook: "EnterpriseAPIにフックしました"
       unhook: "EnterpriseAPIのフックを解除しました"
       else: "hook or unhook"
-    vault:
-      true: "Vaultにフックされています"
-      false: "Vaultにフックされていません"
-      hook: "Vaultにフックしました"
-      unhook: "Vaultのフックを解除しました"
-      else: "hook or unhook"
   balancetop:
     title: "所持金ランキング"
+    val: "[val1]位:[val2]([val3])"
 word:
   name: "名前"
   owner: "オーナー"

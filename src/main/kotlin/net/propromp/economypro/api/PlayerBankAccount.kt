@@ -1,20 +1,22 @@
 package net.propromp.economypro.api
 
+import org.bukkit.Bukkit
 import org.bukkit.OfflinePlayer
 import org.bukkit.World
 
-class PlayerBankAccount(val player: OfflinePlayer) : BankAccount {
+class PlayerBankAccount(player: OfflinePlayer) : BankAccount {
+    val uuid = player.uniqueId
     override val name:String
         get(){
-            player.name?.let{
+            Bukkit.getOfflinePlayer(uuid).name?.let{
                 return it
             }
             return "offline"
         }
     override var balance: Double
         get() {
-            return if (player.isOnline) {//online
-                var onlinePlayer = player.player!!
+            return if (Bukkit.getOfflinePlayer(uuid).isOnline) {//online
+                var onlinePlayer = Bukkit.getOfflinePlayer(uuid).player!!
                 if (worldBalance.containsKey(onlinePlayer.world)) {
                     worldBalance[onlinePlayer.world]!!
                 } else {
@@ -25,8 +27,8 @@ class PlayerBankAccount(val player: OfflinePlayer) : BankAccount {
             }
         }
         set(value) {
-            if (player.isOnline) {//online
-                var onlinePlayer = player.player!!
+            if (Bukkit.getOfflinePlayer(uuid).isOnline) {//online
+                var onlinePlayer = Bukkit.getOfflinePlayer(uuid).player!!
                 if (worldBalance.containsKey(onlinePlayer.world)) {
                     worldBalance[onlinePlayer.world] = value
                 } else {
