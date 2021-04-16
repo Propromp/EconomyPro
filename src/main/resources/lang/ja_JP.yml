@@ -69,6 +69,7 @@ command:
   economypro:
     help:
       enterprise: "EnterpriseAPIのフックの設定を変更します"
+      vault: "Vaultのフックの設定を変更します"
     enterprise:
       true: "EnterpriseAPIにフックされています。"
       false: "EnterpriseAPIにフックされていません"

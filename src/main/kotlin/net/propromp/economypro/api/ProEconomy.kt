@@ -119,6 +119,6 @@ class ProEconomy(val plural: String, val singular: String) {
         selectedAccounts[player.uniqueId]=bankAccount
     }
     fun getSelectedAccount(player: OfflinePlayer):BankAccount{
-        return selectedAccounts[player]!!
+        return selectedAccounts[player.uniqueId]!!
     }
 }

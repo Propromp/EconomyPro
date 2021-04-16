@@ -4,8 +4,6 @@ main: net.propromp.economypro.Main
 api-version: 1.13
 softdepend: [Vault]
 commands:
-  money:
-    description: check your balance
   bank:
     description: manage your bank
     usage: /bank help
@@ -15,10 +13,6 @@ commands:
   pay:
     description: pay <player> <amount>
     usage: /pay <player> <amount>
-  economypro:
-    description: shows help & settings
-  balancetop:
-    description: Displays Top 10
 permissions:
   economypro.*:
     children:

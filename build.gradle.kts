@@ -2,8 +2,7 @@ import de.undercouch.gradle.tasks.download.Download
 
 plugins {
     java
-    kotlin("jvm") version "1.4.20"
-    id("org.jetbrains.dokka") version "1.4.20"
+    kotlin("jvm") version "1.4.32"
     id("com.github.johnrengelman.shadow") version "5.2.0"
 }
 
@@ -26,6 +25,7 @@ repositories {
     maven("https://oss.sonatype.org/content/groups/public/")
     maven("https://kotlin.bintray.com/kotlinx/")
     maven("https://jitpack.io")
+    maven("https://oss.sonatype.org/content/repositories/snapshots")
 }
 
 dependencies {
@@ -34,6 +34,7 @@ dependencies {
     implementation("com.github.the-h-team:Enterprise:1.5")
     compileOnly("com.destroystokyo.paper", "paper-api", paperVersion)
     compileOnly("com.github.MilkBowl:VaultAPI:1.7")
+    compileOnly(files("libs/patched_1.15.2.jar"))
 }
 
 tasks {
@@ -67,12 +68,8 @@ tasks {
         archiveFileName.set("$pluginName-$pluginVersion.jar")
     }
 
-    dokkaJavadoc {
-        outputDirectory.set(File("docs"))
-    }
-
     create<Copy>("buildPlugin") {
-        File("$serverDirectory/plugins").listFiles().forEach{
+        File("$serverDirectory/plugins").listFiles()?.forEach{
             if(it.name.contains(pluginName)&&it.isFile){
                 File("build/oldbuilds").mkdir()
                 it.copyTo(File("build/oldbuilds/${it.name}"),true, DEFAULT_BUFFER_SIZE)

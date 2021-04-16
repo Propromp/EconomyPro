@@ -51,16 +51,13 @@ class Main : JavaPlugin() {
         logger.info("complete.")
 
         logger.info("loading commands...")
-        getCommand("money")?.setExecutor(MoneyCommand())
+        EconomyProCommands()
         getCommand("bank")?.setExecutor(BankCommand())
         getCommand("bank")?.tabCompleter = BankCommand()
         getCommand("balance")?.setExecutor(BalanceCommand())
         getCommand("balance")?.tabCompleter = BalanceCommand()
         getCommand("pay")?.setExecutor(PayCommand())
         getCommand("pay")?.tabCompleter = PayCommand()
-        getCommand("economypro")?.setExecutor(EconomyproCommand())
-        getCommand("economypro")?.tabCompleter = EconomyproCommand()
-        getCommand("balancetop")?.setExecutor(BalancetopCommand())
         logger.info("complete.")
 
         logger.info("loading listener listeners...")

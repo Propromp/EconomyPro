@@ -20,12 +20,12 @@ class EnterpriseAccount(
         fun get(bankAccount: NormalBankAccount): EnterpriseAccount {
             val accountType = AccountType.BANK_ACCOUNT
             var holder = EconomyEntity { "null" }
-            bankAccount.owner?.let {
-                holder = PlayerEconomyEntity(it)
+            bankAccount.ownerUUID.let {
+                holder = PlayerEconomyEntity(Bukkit.getOfflinePlayer(it))
             }
             val members = mutableListOf<EconomyEntity>()
             bankAccount.members.forEach {
-                members.add(PlayerEconomyEntity(it))
+                members.add(PlayerEconomyEntity(Bukkit.getOfflinePlayer(it)))
             }
             val eAccount = EnterpriseAccount(accountType, holder, *members.toTypedArray())
             eAccount.account = bankAccount
@@ -231,7 +231,7 @@ class EnterpriseAccount(
 
     override fun addMember(player: OfflinePlayer): EconomyAction {
         if (!members.contains(player)) {
-            account.members.add(player)
+            account.members.add(player.uniqueId)
             return EconomyAction(holder, true, "ok")
         }
         return EconomyAction(holder, false, "The player is already a member")

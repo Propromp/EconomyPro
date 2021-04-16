@@ -33,9 +33,9 @@ class BankDataLoader(plugin: Main, private var economy: ProEconomy) {
                     val bank =
                         NormalBankAccount(config.getString("$key.name")!!,
                             Bukkit.getOfflinePlayer(UUID.fromString(config.getString("$key.owner"))))
-                    val players = mutableListOf<OfflinePlayer>()
+                    val players = mutableListOf<UUID>()
                     config.getStringList("$key.members").forEach {
-                        players.add(Bukkit.getOfflinePlayer(UUID.fromString(it)))
+                        players.add(UUID.fromString(it))
                     }
                     config.getStringList("$key.selectedby").forEach {
                         economy.selectAccount(Bukkit.getOfflinePlayer(UUID.fromString(it)), bank)
@@ -68,14 +68,14 @@ class BankDataLoader(plugin: Main, private var economy: ProEconomy) {
         economy.accounts.forEach {
             if (it is PlayerBankAccount) {
                 config.set("$i.type", "player")
-                config.set("$i.player", it.player.uniqueId.toString())
+                config.set("$i.player", it.uuid.toString())
                 it.worldBalance.forEach { entry ->
                     config.set("$i.worldbalance.${entry.key.name}", entry.value)
                 }
                 val selectedList = mutableListOf<String>()
                 economy.selectedAccounts.entries.forEach { entry ->
                     if (entry.value == it) {
-                        selectedList.add(entry.key.uniqueId.toString())
+                        selectedList.add(entry.key.toString())
                     }
                 }
                 config.set("$i.selectedby", selectedList)
@@ -84,13 +84,13 @@ class BankDataLoader(plugin: Main, private var economy: ProEconomy) {
             if (it is NormalBankAccount) {
                 config.set("$i.type", "normal")
                 config.set("$i.name", it.name)
-                config.set("$i.owner", it.owner?.uniqueId.toString())
+                config.set("$i.owner", it.ownerUUID.toString())
                 val res = mutableListOf<String>()
-                it.members.forEach { e -> res.add(e.uniqueId.toString()) }
+                it.members.forEach { e -> res.add(e.toString()) }
                 val selectedList = mutableListOf<String>()
                 economy.selectedAccounts.entries.forEach { entry ->
                     if (entry.value == it) {
-                        selectedList.add(entry.key.uniqueId.toString())
+                        selectedList.add(entry.key.toString())
                     }
                 }
                 config.set("$i.selectedby", selectedList)

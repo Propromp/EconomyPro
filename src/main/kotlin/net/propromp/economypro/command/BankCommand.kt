@@ -76,7 +76,7 @@ class BankCommand : CommandExecutor, TabCompleter {
                         }
                         return if (Main.economy.hasAccount(args[1])) {
                             if (Main.economy.getAccount(args[1])!!.isMemberOrOwner(sender)) {
-                                Main.economy.selectedAccounts[sender] = Main.economy.getAccount(args[1])!!
+                                Main.economy.selectedAccounts[sender.uniqueId] = Main.economy.getAccount(args[1])!!
                                 sender.sendMessage("${aqua}${
                                     Main.lang.get(sender, "command.bank.select.2").replace("%val1%", args[1])
                                 }")
@@ -109,7 +109,7 @@ class BankCommand : CommandExecutor, TabCompleter {
                                             "   ${gold}${
                                                 Main.lang.get(sender,
                                                     "word.owner")
-                                            }$dgray»$white ${it.player.name}\n" +
+                                            }$dgray»$white ${Bukkit.getOfflinePlayer(it.uuid)}\n" +
                                             "   ${gold}${
                                                 Main.lang.get(sender,
                                                     "word.balance")
@@ -122,7 +122,7 @@ class BankCommand : CommandExecutor, TabCompleter {
                             Main.economy.getAccount(args[1])?.let {
                                 val members = mutableListOf<String>()
                                 for (member in it.members) {
-                                    members.add(member.name!!)
+                                    members.add(Bukkit.getOfflinePlayer(member).name ?: member.toString())
                                 }
                                 sender.sendMessage(
                                     "$dgray[$red ${
@@ -136,7 +136,7 @@ class BankCommand : CommandExecutor, TabCompleter {
                                             "   ${gold}${
                                                 Main.lang.get(sender,
                                                     "word.owner")
-                                            }$dgray»$white ${it.owner?.name}\n" +
+                                            }$dgray»$white ${Bukkit.getOfflinePlayer(it.ownerUUID).name}\n" +
                                             "   ${gold}${
                                                 Main.lang.get(sender,
                                                     "word.members")
@@ -269,7 +269,7 @@ class BankCommand : CommandExecutor, TabCompleter {
                     "join" -> {
                         Main.economy.getAccount(args[1])?.let { account ->
                             if (account.isInvited(sender)) {
-                                account.members.add(sender)
+                                account.members.add(sender.uniqueId)
                                 sender.sendMessage("${aqua}${Main.lang.get(sender, "command.bank.join.1")}")
                             } else {
                                 sender.sendMessage("${dred}${Main.lang.get(sender, "command.bank.join.2")}")

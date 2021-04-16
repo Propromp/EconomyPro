@@ -115,10 +115,7 @@ class EnterpriseEconomy(val javaPlugin: Plugin, val economy: ProEconomy) : Advan
     }
 
     override fun createAccount(type: AccountType?, name: String): EconomyAction {
-        economy.createAccount(name, null)?.let {
-            return EconomyAction(null, true, "ok")
-        }
-        return EconomyAction(null, false, "The account already exists.")
+        return EconomyAction(null,false,"Not implemented")
     }
 
     override fun createAccount(type: AccountType?, name: String, accountId: String?): EconomyAction {

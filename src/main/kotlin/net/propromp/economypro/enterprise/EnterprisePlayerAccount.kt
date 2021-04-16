@@ -19,7 +19,7 @@ class EnterprisePlayerAccount(
     companion object {
         fun get(bankAccount: PlayerBankAccount): EnterprisePlayerAccount {
             val accountType = AccountType.BANK_ACCOUNT
-            val holder = PlayerEconomyEntity(bankAccount.player)
+            val holder = PlayerEconomyEntity(Bukkit.getOfflinePlayer(bankAccount.uuid))
             val members = mutableListOf<EconomyEntity>()
             val eAccount = EnterprisePlayerAccount(accountType, holder, *members.toTypedArray())
             eAccount.account = bankAccount
@@ -142,7 +142,7 @@ class EnterprisePlayerAccount(
     }
 
     override fun isOwner(name: String): EconomyAction {
-        return EconomyAction(holder, account.player == Bukkit.getOfflinePlayer(name), "deprecated")
+        return EconomyAction(holder, account.uuid == Bukkit.getOfflinePlayer(name).uniqueId, "deprecated")
     }
 
     override fun isOwner(name: String?, world: String?): EconomyAction {
@@ -150,7 +150,7 @@ class EnterprisePlayerAccount(
     }
 
     override fun isOwner(player: OfflinePlayer): EconomyAction {
-        return EconomyAction(holder, account.player == player, "ok")
+        return EconomyAction(holder, account.uuid == player.uniqueId, "ok")
     }
 
     override fun isOwner(player: OfflinePlayer?, world: String?): EconomyAction {
@@ -158,7 +158,7 @@ class EnterprisePlayerAccount(
     }
 
     override fun isOwner(uuid: UUID): EconomyAction {
-        return EconomyAction(holder, account.player == Bukkit.getOfflinePlayer(uuid), "ok")
+        return EconomyAction(holder, account.uuid == Bukkit.getOfflinePlayer(uuid).uniqueId, "ok")
     }
 
     override fun isOwner(uuid: UUID?, world: String?): EconomyAction {
