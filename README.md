@@ -3,8 +3,11 @@ super-useful economy plugin
 ## features
 - Full Vault support
 - simple and useful API
-- database support(Not implemented yet)
 - no junks. just economy.
+### features in future
+- Scoreboard linking
+- database support
+- CommandBlock friendly
 ## commands
 - /money:check your balance
 - /bank:manage your bank account
