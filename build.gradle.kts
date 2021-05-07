@@ -3,7 +3,7 @@ import de.undercouch.gradle.tasks.download.Download
 plugins {
     java
     kotlin("jvm") version "1.4.32"
-    id("com.github.johnrengelman.shadow") version "5.2.0"
+    id("com.github.johnrengelman.shadow") version "6.1.0"
 }
 
 val pluginId: String by extra
@@ -26,15 +26,19 @@ repositories {
     maven("https://kotlin.bintray.com/kotlinx/")
     maven("https://jitpack.io")
     maven("https://oss.sonatype.org/content/repositories/snapshots")
+    maven("https://libraries.minecraft.net/")
+    maven("https://raw.githubusercontent.com/JorelAli/CommandAPI/mvn-repo/")
 }
 
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
     implementation("org.jetbrains.kotlinx", "kotlinx-coroutines-core", "latest.release")
     implementation("com.github.the-h-team:Enterprise:1.5")
+    implementation("me.lucko:commodore:1.7")
     compileOnly("com.destroystokyo.paper", "paper-api", paperVersion)
     compileOnly("com.github.MilkBowl:VaultAPI:1.7")
     compileOnly(files("libs/patched_1.15.2.jar"))
+    implementation("dev.jorel:commandapi-shade:5.3")
 }
 
 tasks {
@@ -66,6 +70,9 @@ tasks {
 
     shadowJar {
         archiveFileName.set("$pluginName-$pluginVersion.jar")
+        dependencies{
+            exclude(dependency("com.mojang:brigadier"))
+        }
     }
 
     create<Copy>("buildPlugin") {

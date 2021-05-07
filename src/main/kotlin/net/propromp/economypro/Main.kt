@@ -1,5 +1,6 @@
 package net.propromp.economypro
 
+import dev.jorel.commandapi.CommandAPI
 import net.propromp.economypro.api.ProEconomy
 import net.propromp.economypro.command.*
 import net.propromp.economypro.listener.EPPlayerEvent
@@ -17,6 +18,9 @@ class Main : JavaPlugin() {
     }
 
     lateinit var hook: EconomyHook
+    override fun onLoad() {
+        CommandAPI.onLoad(false);
+    }
     override fun onEnable() {
         logger.info(" ${ChatColor.GREEN}┏━━━━━       ${ChatColor.AQUA}┏━━━━━┓")
         logger.info(" ${ChatColor.GREEN}┃            ${ChatColor.AQUA}┃     ┃")
@@ -50,14 +54,9 @@ class Main : JavaPlugin() {
         bankDataLoader.loadAll()
         logger.info("complete.")
 
-        logger.info("loading commands...")
-        EconomyProCommands()
-        getCommand("bank")?.setExecutor(BankCommand())
-        getCommand("bank")?.tabCompleter = BankCommand()
-        getCommand("balance")?.setExecutor(BalanceCommand())
-        getCommand("balance")?.tabCompleter = BalanceCommand()
-        getCommand("pay")?.setExecutor(PayCommand())
-        getCommand("pay")?.tabCompleter = PayCommand()
+        logger.info("registering commands...")
+        CommandAPI.onEnable(this);
+        EconomyProCommands(this)
         logger.info("complete.")
 
         logger.info("loading listener listeners...")

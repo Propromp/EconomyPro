@@ -12,8 +12,8 @@ import org.bukkit.ChatColor.DARK_GRAY as dgray
 import org.bukkit.ChatColor.WHITE as white
 import org.bukkit.ChatColor.RED as red
 
-class BalancetopCommand:CommandExecutor {
-    override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
+class BalancetopCommand {
+    fun run(sender: CommandSender): Boolean {
         var sorted = ArrayList(Main.economy.accounts)
         sorted.sortByDescending{ it.balance }
         var i = 0

@@ -3,6 +3,8 @@ package net.propromp.economypro.api
 import net.propromp.economypro.api.event.BankDepositEvent
 import net.propromp.economypro.api.event.BankWithdrawEvent
 import org.bukkit.Bukkit
+import org.bukkit.OfflinePlayer
+import org.bukkit.entity.Player
 
 interface BankAccount {
     var balance:Double
@@ -20,4 +22,5 @@ interface BankAccount {
             balance-=amount
     }
     fun has(amount:Double):Boolean
+    fun canSelect(player: OfflinePlayer):Boolean
 }

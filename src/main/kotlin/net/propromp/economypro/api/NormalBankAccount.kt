@@ -1,6 +1,7 @@
 package net.propromp.economypro.api
 
 import org.bukkit.OfflinePlayer
+import org.bukkit.entity.Player
 import java.util.*
 
 open class NormalBankAccount(override var name: String, owner: OfflinePlayer) : BankAccount {
@@ -22,6 +23,10 @@ open class NormalBankAccount(override var name: String, owner: OfflinePlayer) : 
 
     fun isMemberOrOwner(player: OfflinePlayer): Boolean {
         return isOwner(player) || isMember(player)
+    }
+
+    override fun canSelect(player: OfflinePlayer):Boolean {
+        return isMemberOrOwner(player)
     }
 
     fun addInvited(player: OfflinePlayer) {

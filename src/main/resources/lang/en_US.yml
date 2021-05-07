@@ -42,7 +42,7 @@ command:
       1: "Invited %val1% to %val2%"
       2: "You received an invitation from bank account %val1%"
       3: "[join]"
-      already_member: "そのプレイヤーはすでに口座のメンバーです。"
+      already_member: "The player is already a member of the bank account."
     leave:
       1: "You have left from bank account %val1%"
       2: "You have to delete the bank before you leave the bank"

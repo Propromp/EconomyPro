@@ -70,4 +70,8 @@ class PlayerBankAccount(player: OfflinePlayer) : BankAccount {
     fun has(amount: Double, world: World): Boolean {
         return getBalance(world) >= amount
     }
+
+    override fun canSelect(player: OfflinePlayer): Boolean {
+        return player.uniqueId==uuid
+    }
 }

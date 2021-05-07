@@ -39,6 +39,7 @@ command:
       1: "%val1%を%val2%に招待しました"
       2: "銀行口座「%val1%」から招待を受け取りました。参加しますか？"
       3: "[参加]"
+      already_member: "そのプレイヤーはすでに口座のメンバーです。"
     leave:
       1: "%val1%から抜けました"
       2: "この口座から抜ける前に削除してください。"
@@ -75,6 +76,12 @@ command:
       false: "EnterpriseAPIにフックされていません"
       hook: "EnterpriseAPIにフックしました"
       unhook: "EnterpriseAPIのフックを解除しました"
+      else: "hook or unhook"
+    vault:
+      true: "Vaultにフックされています。"
+      false: "Vaultにフックされていません"
+      hook: "Vaultにフックしました"
+      unhook: "Vaultのフックを解除しました"
       else: "hook or unhook"
   balancetop:
     title: "所持金ランキング"

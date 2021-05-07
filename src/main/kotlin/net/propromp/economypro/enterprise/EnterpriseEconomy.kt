@@ -67,7 +67,7 @@ class EnterpriseEconomy(val javaPlugin: Plugin, val economy: ProEconomy) : Advan
     }
 
     override fun getAccount(name: String): Account? {
-        return economy.getAccount(name)?.let { EnterpriseAccount.get(it) }
+        return economy.getNormalAccount(name)?.let { EnterpriseAccount.get(it) }
     }
 
     override fun getAccount(name: String, type: AccountType): Account? {

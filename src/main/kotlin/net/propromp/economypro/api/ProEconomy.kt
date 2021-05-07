@@ -62,12 +62,24 @@ class ProEconomy(val plural: String, val singular: String) {
      * @param name name of the bank
      * @return bank account
      */
-    fun getAccount(name: String): NormalBankAccount? {
+    fun getNormalAccount(name: String): NormalBankAccount? {
         accounts.forEach {
             if (it is NormalBankAccount) {
                 if (it.name.equals(name,true)) {
                     return it
                 }
+            }
+        }
+        return null
+    }/**
+     * get a bank from string
+     * @param name name of the bank
+     * @return bank account
+     */
+    fun getAccount(name: String): BankAccount? {
+        accounts.forEach {
+            if (it.name.equals(name,true)) {
+                return it
             }
         }
         return null
@@ -112,6 +124,10 @@ class ProEconomy(val plural: String, val singular: String) {
             return true
         }
         return false
+    }
+    fun deleteAccount(account: BankAccount){
+        Bukkit.getPluginManager().callEvent(DeleteBankAccountEvent(account))
+        accounts.remove(account)
     }
 
     fun selectAccount(player: OfflinePlayer,bankAccount: BankAccount){

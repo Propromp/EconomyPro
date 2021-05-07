@@ -361,7 +361,7 @@ class VaultEconomy(private val economy: ProEconomy) : Economy {
      * @return EconomyResponse Object
      */
     override fun isBankOwner(name: String, player: OfflinePlayer): EconomyResponse {
-        economy.getAccount(name)?.let {
+        economy.getNormalAccount(name)?.let {
             return EconomyResponse(0.0, 0.0, EconomyResponse.ResponseType.SUCCESS, (it.ownerUUID == player.uniqueId).toString())
         }
         return EconomyResponse(0.0, 0.0, EconomyResponse.ResponseType.FAILURE, "The bank doesn't exist")
@@ -379,7 +379,7 @@ class VaultEconomy(private val economy: ProEconomy) : Economy {
      * @return EconomyResponse Object
      */
     override fun isBankMember(name: String, player: OfflinePlayer): EconomyResponse {
-        economy.getAccount(name)?.let {
+        economy.getNormalAccount(name)?.let {
             return EconomyResponse(
                 0.0,
                 0.0,
